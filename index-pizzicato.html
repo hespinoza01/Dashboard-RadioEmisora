@@ -1,0 +1,151 @@
+﻿<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Pizzicato.js: A Javascript library for web audio</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="css/main.css">
+
+        <!-- <script src="js/vendor/modernizr-2.8.3.min.js"></script> -->
+    </head>
+    <body>
+	<div align="center">	
+		<h2 align> CONFIGURACION DE EFECTOS PIZZICATO </h3>
+	</div>	
+
+        <div id="wrapper">
+
+            <div id="space-blocker-left"></div>
+
+            <div class="container">
+
+                <div class="slider-group">
+                    <div class="slider">
+                        <label for="volume-cavaquinho">Volume</label>
+                        <input type="range" min="0" max="1" step="0.01" value="1" id="volume-cavaquinho" />
+                        <div class="slider-value" id="html-volume">1</div>
+                    </div>
+                    <div class="slider">
+                        <input type="checkbox" name="check-time" id="check-time" onclick="CheckReverd()" />
+                        <label for="reverb-time">Time</label>
+                        <input type="range" min="0.01" max="3" step="0.01" value="0.01" id="reverb-time" disabled/>
+                        <div class="slider-value" id="html-time">0.01</div>
+                    </div>
+                    <div class="slider">
+                        <label for="reverb-decay">Decay</label>
+                        <input type="range" min="0.0" max="3" step="0.01" value="0.01" id="reverb-decay" disabled/>
+                        <div class="slider-value" id="html-decay">0.01</div>
+                    </div>
+                    <div class="slider">
+                        <label for="reverb-mix">Mix</label>
+                        <input type="range" min="0" max="1" step="0.01" value="0.5" id="reverb-mix" disabled/>
+                        <div class="slider-value" id="html-mix">0.5</div>
+                    </div>
+                    <!--  Ping-Pong Delay-->
+                    <div class="slider">
+                        <input type="checkbox" name="check-feedback" id="check-feedback" onclick="CheckPingpong()" />
+                        <label for="ping-pong-delay-feedback">Feedback</label>
+                        <input type="range" min="0" max="1" step="0.01" value="10" id="ping-pong-delay-feedback" disabled/>
+                        <div class="slider-value" id="html-feedbck">0</div>
+                    </div>
+                    <!-- Quadrafuzz -->
+                    <div class="slider">
+                        <input type="checkbox" name="check-low" id="check-low" onclick="CheckQuadrafuzz()" />
+                        <label for="quadrafuzz-low">Low gain</label>
+                        <input type="range" min="0" max="1" step="0.01" value="0.6" id="quadrafuzz-low" disabled/>
+                        <div class="slider-value" id="html-qdlow">0.6</div>
+                    </div>
+                    <div class="slider">
+                        <label for="quadrafuzz-high">High gain</label>
+                        <input type="range" min="0" max="1" step="0.01" value="0.6" id="quadrafuzz-high" disabled/>
+                        <div class="slider-value" id="html-qdhigh">0.6</div>
+                    </div>
+                    <!-- Stereo panner -->
+                    <div class="slider">
+                        <input type="checkbox" name="check-pan" id="check-pan" onclick="CheckPanner()" />
+                        <label for="stereo-panner-pan">Pan</label>
+                        <input type="range" min="-1" max="1" step="0.01" value="0.0" id="stereo-panner-pan" disabled/>
+                        <div class="slider-value" id="html-pan">0.0</div>
+                    </div>
+                    <!-- Low-Pass Filter -->
+                    <div class="slider">
+                        <input type="checkbox" name="check-frequency" id="check-frequency" onclick="LowPass()" />
+                        <label for="low-pass-filter-frequency">Frequency</label>
+                        <input type="range" min="10" max="22050" step="1" value="400" id="low-pass-filter-frequency" disabled/>
+                        <div class="slider-value" id="html-frequency">400</div>
+                    </div>
+                    <div class="slider">
+                        <label for="low-pass-filter-peak">Peak</label>
+                        <input type="range" min="0.0001" max="20" step="0.0001" value="10" id="low-pass-filter-peak" disabled/>
+                        <div class="slider-value" id="html-lpfpeak">10</div>
+                    </div>
+                    <!-- Distortion -->
+                    <div class="slider">
+                        <input type="checkbox" name="check-gain" id="check-gain" onclick="CheckGain()" />
+                        <label for="distortion-gain">Gain</label>
+                        <input type="range" min="0" max="1" step="0.01" value="0.4" id="distortion-gain" disabled/>
+                        <div class="slider-value" id="html-gain">0.4</div>
+                    </div>
+                    <!-- Ring Modulator -->
+                    <div class="slider">
+                        <input type="checkbox" name="check-ring" id="check-ring" onclick="CheckRingModulator()" />
+                        <label for="ringmod-speed">Speed</label>
+                        <input type="range" min="0" max="2000" step="1" value="30" id="ringmod-speed" disabled/>
+                        <div class="slider-value" id="html-speed">30</div>
+                    </div>
+                    <div class="slider">
+                        <label for="ringmod-distortion">Distortion</label>
+                        <input type="range" min="0.2" max="50" step="0.0001" value="1" id="ringmod-distortion" disabled/>
+                        <div class="slider-value" id="html-distortion">1</div>
+                    </div>
+                    <!-- Compressor -->
+                    <div class="slider">
+                        <input type="checkbox" name="check-compressor" id="check-compressor" onclick="CheckCompressor()" />
+                        <label for="compressor-threshold">Threshold</label>
+                        <input type="range" min="-100" max="0" step="1" value="-24" id="compressor-threshold" disabled/>
+                        <div class="slider-value" id="html-threshold">-24</div>
+                    </div>
+                    <div class="slider">
+                        <label for="compressor-knee">Knee</label>
+                        <input type="range" min="0" max="40" step="1" value="30" id="compressor-knee" disabled/>
+                        <div class="slider-value" id="html-knee">30</div>
+                    </div>
+                    <div class="slider">
+                        <label for="compressor-attack">Attack</label>
+                        <input type="range" min="0" max="1" step="0.001" value="0.003" id="compressor-attack" disabled/>
+                        <div class="slider-value" id="html-attack">0.003</div>
+                    </div>
+                    <div class="slider">
+                        <label for="compressor-release">Release</label>
+                        <input type="range" min="0" max="1" step="0.001" value="0.250" id="compressor-release" disabled/>
+                        <div class="slider-value" id="html-release">0.250</div>
+                    </div>
+                    <div class="slider">
+                        <label for="compressor-ratio">Ratio</label>
+                        <input type="range" min="1" max="20" step="1" value="12" id="compressor-ratio" disabled/>
+                        <div class="slider-value" id="html-ratio">12</div>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <span id="label-message" class="labelmessageclose">Datos Guardados</span>
+                    <button id="stop-cavaquinho" class="stop action"></button>
+                    <button id="play-cavaquinho" class="play action"></button>
+                    <button id="guardarjson" class="action primary">Guardar valores</button>
+                </div>
+
+
+            </div>
+
+        <div id="space-blocker-right"></div>
+
+        </div>
+
+
+        <script src="../js/Pizzicato.js"></script>
+        <script src="../js/main.js"></script>
+    </body>
+</html>

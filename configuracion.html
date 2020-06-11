@@ -1,0 +1,58 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" href="css/ventana.css" type="text/css" >
+		<link rel="stylesheet" href="css/menu.css" type="text/css" >
+		<title>Login Configuracion de Emisora</title>
+	</head>
+	<body>
+	<div id="titulo">
+		
+		<label style="font: bold 24px verdana, arial, helvetica, sans-serif; position: absolute; top:15px; margin-left:35%;"> CONFIGURACIÓN DE EMISORA</label> 
+	</div>
+
+
+	<script type="text/javascript"> 
+	
+	/*	function ingresar(){
+			window.location="php/Principal.php";
+		}*/
+		
+		function salir(){
+			window.location="index.html";
+		}
+	</script>
+	<form action="php/iniciar_sesion.php" method="post">
+			<div class="ventana" align="right" style="display:block;  margin-left: auto; margin-right: auto; width:500px; height:280px; top: 150px;">
+				<span style="color:#FFFFFF"><strong>Login</strong></span>
+				<div class="contenedor" style="position: absolute; width:98%; height:82%;  top: 40px; margin-left: 1%;">
+
+					<div align="left" style="position: absolute; top: -5%; margin-left: 20%;">
+						<br><br><br>
+						<img src="imagenes/user.png"> 
+						<input type="text" style="width:300px" class="txtBox" autocomplete="off" name="txtUsuario" placeholder="Usuario" autofocus> 
+						<br><br>
+						<img src="imagenes/clave.png">
+						<input type="password" style="width:300px" class="txtBox" autocomplete="off" name="txtClave" placeholder="Clave"> 
+											</div>
+					<div align="center" style="position: absolute;  bottom: 10px; margin-left: 35%;">
+						<button class="boton" name="Ingresar">
+							<img src="imagenes/check.png">
+							<br>
+							<span style="color:#000000"><strong>Ingresar</strong></span>
+						</button>
+						<button class="boton" type="button" name="Salir" Onclick="salir()">
+							<img src="imagenes/sign-out.png">
+							<br>
+							<span style="color:#000000"><strong>Salir</strong></span>
+						</button>
+					</div>
+				</div>
+		   </div>
+	</form>
+	</body>
+		
+</html>

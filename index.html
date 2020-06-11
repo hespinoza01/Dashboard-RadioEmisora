@@ -1,0 +1,386 @@
+﻿<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0"/>
+	<meta http-equiv="Last-Modified" content="0">
+	<link rel="icon" type="image/ico" href="imagenes/ICO-1.ico" sizes="250x250">
+	<script src="js/jquery.min.js"></script>
+	
+    <style>
+		@font-face {
+		font-family: 'timesOne';
+		src: URL('fonts/008.ttf') format('truetype');
+		}
+		@font-face {
+		font-family: 'timesFive';
+		src: URL('fonts/501.ttf') format('truetype');
+		}
+		@font-face {
+		font-family: 'timesSix';
+		src: URL('fonts/502.ttf') format('truetype');
+		}
+		@font-face {
+			font-family: 'timesTwo';
+			src: URL('fonts/009.ttf') format('truetype');
+		}
+		@font-face {
+			font-family: 'timesThree';
+			src: URL('fonts/010.ttf') format('truetype');
+		}
+		@font-face {
+			font-family: 'timesFour';
+			src: URL('fonts/011.ttf') format('truetype');
+		}
+		
+		body {
+			font-family:'Helvetica';
+			margin-top: 5px;
+			/*outline:none;*/
+		}
+		
+		/* // Small devices (landscape phones, 320px and up) */
+        @media (min-width: 270px) { 
+				/* titulo de la emisora */
+			#titulo_emisora {
+				font-family: 'timesFive';
+					font-size: 35px;
+			}
+			
+			/* slogan de la emisora */
+			#slogan_emisora {
+				font-family: 'timesSix';
+				font-size: 30px;
+				color: blue;
+			}
+			.timesControlInfo {
+				color: blue;
+				font-size: 25px;
+			}
+			#timeProgress {
+				font-family: 'timesOne';
+				font-size: 32px;
+			}
+			#timesActual {
+				font-family: 'timesTwo';
+				font-size: 18px;
+			}
+			#timesRestante {
+				font-family: 'timesThree';
+				font-size: 28px;
+			}
+           canvas{ 
+				width: 279px;
+				height: 50px;
+				background: #002D3C;
+				margin-top:-5px;
+				left: 30%;
+				border-bottom-left-radius: 5px;
+				border-bottom-right-radius: 5px;
+			}
+        }
+		
+		
+		
+		     /* // Small devices (landscape phones, 576px and up) */
+        @media (min-width: 576px) { 
+				/* titulo de la emisora */
+			#titulo_emisora {
+				font-family: 'timesFive';
+					font-size: 40px;
+			}
+			
+			/* slogan de la emisora */
+			#slogan_emisora {
+				font-family: 'timesSix';
+				font-size: 35px;
+				color: blue;
+			}
+			.timesControlInfo {
+				color: blue;
+				font-size: 28px;
+			}
+			#timeProgress {
+				font-family: 'timesOne';
+				font-size: 35px;
+			}
+			#timesActual {
+				font-family: 'timesTwo';
+				font-size: 21px;
+			}
+			#timesRestante {
+				font-family: 'timesThree';
+				font-size: 31px;
+			}
+           canvas{ 
+				width: 279px;
+				height: 50px;
+				background: #002D3C;
+				margin-top: -5px;
+				left: 34%;
+				border-bottom-left-radius: 5px;
+				border-bottom-right-radius: 5px;
+			}
+        }
+
+	
+		
+		/* Barra del reproductor en color Amarillo */
+		#track {
+			width: 280px;
+			height: 40px;
+			position: relative;
+			background-color: #e2e20e;
+			bottom: 115px;
+			left: 0;
+			right: 0;
+			z-index: 10;
+			margin: auto;
+			border-radius: 5px;
+			top: 0;
+			margin-top: 30px;
+		}
+		/* Barra transcurrente de color Negro, Pinta el tiempo transcurrido */
+		#progress {
+			float: left;
+			height: 40px;
+			width: 0%;
+			background: green;
+			border-radius: 5px;
+		}
+		/* Cuadro del tiempo transcurrido, Lleva el porcentaje (Porcentaje administrado desde JS) */
+		#handler {
+			font-family: 'timesFour';
+			font-size: 29px;
+			position: absolute;
+			width: 67px;
+			height: 57px;
+			background-color: #000;
+			top: 50%;
+			left: 0%;
+			margin-left: 0px;
+			margin-top: -29px;
+			z-index: 5;
+			color: #FFF;
+			text-align: center;
+			line-height: 2.3;
+		}
+		/* Clase de diseño de los botones, Play - Pause */
+		.nav {
+			width: 75px;
+			height: 75px;
+			vertical-align: top;
+			background-color: #FFF;
+			border: 2px solid #0000;
+			border-radius: 50%;
+			outline:none;
+			margin: 0 22px;
+			cursor: pointer;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+		}
+		/* Tamaño de las imagenes de los botones Play - Pause */
+		#btnplay {
+			background-image: url('imagenes/PLAY-2.png');
+			background-repeat: no-repeat;
+			background-size: 75px;
+		}
+
+		#muteded {
+			background-image: url('imagenes/PAUSE-1.png');
+			background-repeat: no-repeat;
+			background-size: 74px;   
+		}
+
+		.nav:focus {
+			outline:none;
+			-webkit-appearance: none;
+		}
+
+		.nav:hover {
+			outline:none;
+			-webkit-appearance: none;
+		}
+		.pad {
+			padding-left: 5px;
+		}
+		/* Tamaño que se muestra de la cancion en curso */
+		#nombre {
+			margin-top: 16px;
+			font-size: 22px;
+		}
+		/* Estilo de los tiempos transcurridos de la cancion */
+/*		.timesControlInfo {
+			color: blue;
+			font-size: 28px;
+		}*/
+		.timesControlInfo span {
+			color: green;
+		}
+		/* Estilo personalizado del boton imagen mute */
+		#muted img{
+			height: 78px;
+			vertical-align: middle;
+			margin-left: -3px;
+			margin-top: -3px;
+		}
+		/* Funciona como interruptor si el usuario clickeo Play */
+		.info #play .active{
+			background: red;
+		}
+		/* Funciona como interruptor si el usuario clickeo Muted */
+		.info #muted .active{
+			background: royalblue;
+		}
+		/* Se le agrega el tipo de letra */
+	/*	#timeProgress {
+			font-family: 'timesOne';
+			font-size: 35px;
+		}
+		#timesActual {
+			font-family: 'timesTwo';
+			font-size: 21px;
+		}
+		#timesRestante {
+			font-family: 'timesThree';
+			font-size: 31px;
+		}*//*
+		
+		canvas{ 
+			width: 279px;
+			height: 50px;
+			background: #002D3C;
+			margin-top: 56px;
+			left: 34%;
+			border-bottom-left-radius: 5px;
+			border-bottom-right-radius: 5px;
+		 }*/
+	</style>
+
+</head>
+
+<body onload='sincronizar();'>
+	<CENTER>
+		<img class='imagen_emisora' id='imagen_emisora' style="border-radius:10%; " src="imagenes/logo.png" alt="" width="70" height="70"/>
+		<div class='titulo_emisora' id='titulo_emisora'>Radio Maracaibo</div>
+		<div class='slogan_emisora' id='slogan_emisora'>La Radio Alegre</div>
+		<br>
+		<div class="contenedor">
+			<div class="info">
+				<div class="cont">
+					<button id="btnplay" class="nav"></button>
+					<button id="muteded" class="nav"></button>
+					<img  id="img_compartir" src="imagenes/compartir.png" width="40" height="40" TITLE="Compartir" onclick="window.open('php/generador_link.php','_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=30%,left=200,width=900,height=600');"/>
+					
+				</div>
+			</div>
+		
+			<div id="reproductor">
+				<video id="Playing" style="outline:none; display: none" mediagroup="agrupador" autoplay=true muted="" controlsList="nodownload" playsinline="playsinline" preload></video>
+				<div class="container">
+				  <div id="track">
+					<div id="progress"></div>
+					<div id="handler"></div>
+				  </div>
+				  
+				</div>
+				<canvas id="analyser_render"></canvas>
+				<div class="timesControlInfo" id="timesControlInfo"></div>
+			</div>
+		</div>
+	</CENTER>
+	<br>
+	<br>
+	
+	<div id='control_lista'>
+		<br>
+		<br>
+		<CENTER>	
+			<button id="next">Siguiente</button>
+			<br>
+			<br>
+		</CENTER>
+	
+		<p id="txtCancion" >Cancion</p>
+		<br>
+		Lista de Audios:
+		<p id="txtArray" >Arreglo</p>
+		<br>
+		<p id="txtGeneroActivo" style="outline:none; display: none">Genero Activo:</p>
+		
+		<p id="txtGenero" style="outline:none; display: none"><br>
+		Generos:
+		<BR>Arreglo</p>
+		
+		<p id="txtComercial" style="outline:none; display: none"><BR>
+		Comerciales:
+		<BR>Comercial</p>
+	</div>
+	 <script>
+				//window.history.replaceState("http://radiox-", "Sample Title", "index.html");
+				
+			//	var string_url=getAbsolutePath().slice(getAbsolutePath().indexOf("//")+2)+'index';
+				//alert(string_url);
+				//let stateObj = { index: "bar" };
+			//	window.history.pushState("", "", "emisora/lugar");
+				var color_barritas,color_guion,color_puntos,color_signo, color_tiempo;
+				var tactual,tduracion,trestante;
+				var xhr = new XMLHttpRequest();
+				xhr.open('GET', "php/datos_emisora.php", true);
+				xhr.responseType = 'text';
+				xhr.onload = function () {
+					if (xhr.readyState === xhr.DONE) {
+						if (xhr.status === 200) {
+							var responjson= JSON.parse(this.responseText);
+							// sicroniza la lista de variables
+							var l_var=JSON.parse(responjson.lista_variables);
+							var l_web=JSON.parse(responjson.lista_web);
+							
+							// VARIABLES DE DATOS EMISORA (LOGO, NOMBRE Y SLOGAN)
+							document.getElementById('titulo_emisora').innerHTML=l_var.nombre_emisora;
+							document.getElementById('titulo_emisora').style="font-size: "+l_var.letra_emisora+"px; color:"+l_var.color_emisora+";";
+																		
+							document.getElementById('slogan_emisora').innerHTML=l_var.slogan_emisora;
+							document.getElementById('slogan_emisora').style="font-size: "+l_var.letra_slogan+"px; color:#"+l_var.color_slogan+";";
+							
+							document.getElementById('imagen_emisora').style="border-radius:"+l_var.redondeo+"%; width:"+l_var.ancho_logo+"; heigth:"+l_var.largo_logo+";";
+							document.getElementById('imagen_emisora').src=l_var.url_logo;
+							
+						// VARIABLES DE COLORES PARA LA WEB AUDIO
+							document.getElementById('handler').style="background-color: #"+l_web.cuadro+"; color:"+l_web.numero+";";
+							color_signo='#'+l_web.signo;
+							document.getElementById('progress').style="background-color: #"+l_web.barra1+";";
+							document.getElementById('track').style="background-color: #"+l_web.barra2+";";
+							document.getElementById('analyser_render').style="background-color: #"+l_web.barra3+";";
+							color_barritas='#'+l_web.barritas;
+							color_tiempo='#'+l_web.tiempo;
+							document.getElementById('timesControlInfo').style="color:"+l_web.slash+";";
+							color_guion='#'+l_web.guion;
+							color_puntos='#'+l_web.puntos;
+							document.getElementById('control_lista').style="display:"+l_web.visibilidad+";";
+							
+							document.getElementById('img_compartir').style="display:"+l_web.visible_compartir+";";
+							
+							tactual=l_web.tactual;
+							tduracion=l_web.tduracion;
+							trestante=l_web.trestante;
+						}
+					}
+				};
+				xhr.send(null);
+	
+		
+		function getAbsolutePath() {
+			var loc = window.location;
+			var pathName = loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
+			return loc.href.substring(0, loc.href.length - ((loc.pathname + loc.search + loc.hash).length - pathName.length));
+		}	
+	 </script>
+	 <script src="js/funcion.js"></script>
+       <!--  <script src="Pizzicato.js"></script>
+        <script src="js/principal3.js"></script>    -->
+</body>
+</html>

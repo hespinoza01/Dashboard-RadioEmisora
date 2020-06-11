@@ -1,0 +1,91 @@
+body {
+    background-color : #FFFFFF;
+    color                    : black;
+}
+
+.titulo{
+	padding:0;
+	font-size:14px;
+	font-family:Verdana;
+	/*border: 3px solid rgba(255,255,255,0);
+	border: 1px solid rgba(0,0,0,0.8); */
+    background:#FFFFFF;
+	position: relative;
+	
+}
+
+.ventana{
+    padding:0;
+	font-size:14px;
+	font-family:Verdana;
+	border: 3px solid rgba(0,0,5,0);
+    background:#3CBFFF;
+	position: relative;
+	/*border-radius: 5px;*/
+}
+
+.ventana:hover{
+    background:#FF8040;
+    -moz-transition: background 0.9s ease-in;
+    -webkit-transition: background 0.3s ease-in;
+    -o-transition: background 0.9s ease-in;
+}
+
+.contenedor{
+    padding:0;
+	font-size:14px;
+    background:#EAFFFF;
+    font-family:Verdana;
+    /*border: 1px solid rgba(0,0,0,0.8);*/
+	position: relative;
+	    overflow-y:auto;
+	
+}
+
+.boton{
+	padding:156;
+    width: 80px;
+	height:70px;
+	font-size:12px;
+	font-family:Verdana;
+    background:#FFFFFF;
+	position: relative;
+	border-radius: 20%;
+}
+
+.boton:hover{
+    background:#C6ECFF;
+}
+
+
+
+.txtBox{
+	height:25px;
+	font-size:14px;
+    background:#FFFFFF;
+	font-family:Verdana;
+	position: relative;
+	border-radius: 2%;
+}
+
+
+.txtArea{
+	height:25px;
+	font-size:14px;
+    background:#FFFFFF;
+	font-family:Verdana;
+	position: relative;
+	/*border-radius: 2%;*/
+}
+
+
+.comboBox{
+	height:25px;
+	font-size:14px;
+    background:#FFFFFF;
+	font-family:Verdana;
+	position: relative;
+	/*border-radius: 2%;*/
+	cursor: pointer;
+}
+
