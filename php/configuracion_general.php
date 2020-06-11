@@ -150,6 +150,7 @@ function listar_variables(){
 					document.getElementById('iframe_largo').value='$array_general[iframe_largo]';
 					
 					document.getElementById('carpeta_link').value='$array_general[carpeta_link]';
+                    document.getElementById('carpeta_link_vieja').value='$array_general[carpeta_link]';
 					
 				</script>
 			";
@@ -504,6 +505,7 @@ function listar_variables(){
 			<br><br>
 			<span>Carpeta:</span>
 			<input type="text" name="carpeta_link" id="carpeta_link" style='width:230px' value="Link" autocomplete="off"/>
+            <input type="text" name="carpeta_link_vieja" id="carpeta_link_vieja" style='width:230px; display: none;' value="Link" autocomplete="off">
 			<br><br>
 			<span>Duración: </span>
 			<input type="text" name="tiempo_duracion" id="tiempo_duracion" style='width:80px' value="" autocomplete="off"/>

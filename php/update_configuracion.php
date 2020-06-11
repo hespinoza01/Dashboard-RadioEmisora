@@ -69,7 +69,6 @@
 	}
 	
 	function showFiles($path){
-		file_put_contents("php://output", "=====>> ".$path);
 		$dir = opendir($path);
 		$files = array();
 		while ($current = readdir($dir)){

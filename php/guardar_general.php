@@ -69,13 +69,18 @@
 			'carpeta_link'	=> $_POST['carpeta_link']
 			
 		);
-		$fh = fopen("../json/webaudio.json", 'w') or die("Unable to open file webaudio.json! ".__DIR__);
+
+		if(strcmp($_POST['carpeta_link'], $_POST['carpeta_link_vieja']) != 0){
+			rename("../".$_POST['carpeta_link_vieja'], "../".$_POST['carpeta_link']);
+		}
+
+		$fh = fopen("../json/webaudio.json", 'w');
 		fwrite($fh, json_encode($webaudio,JSON_UNESCAPED_UNICODE));
 		$code=fclose($fh);
 	}
 	
 	$revolver="false";
-	if (is_file("../json/general.json") or die("Unable to open file general.json if! ".__DIR__)) { echo("alert('into if')");
+	if (is_file("../json/general.json")) {
 		$datos_general= file_get_contents("../json/general.json");
 		$array_general = json_decode($datos_general, true);
 		if($array_general['RANDOM'] != $_POST["revolver_generos"] || $array_general['SEPARAR_GENERO'] != $_POST["separar_genero"] || $array_general['PIZZICATO'] != $_POST["pizzicato"] || $array_general['tiempo_inactividad'] != $_POST["inactividad"] ||
@@ -104,7 +109,7 @@
 		fwrite($fh, json_encode($array_general,JSON_UNESCAPED_UNICODE));
 	}
 	else{
-		$fh = fopen("../json/general.json", 'w') or die("Unable to open file gereral.json else! ".__DIR__);
+		$fh = fopen("../json/general.json", 'w');
 		fwrite($fh, json_encode($variable_new,JSON_UNESCAPED_UNICODE));
 	}
 	
