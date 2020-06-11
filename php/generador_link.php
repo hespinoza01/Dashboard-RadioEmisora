@@ -3,7 +3,7 @@
 	if(isset($_REQUEST['opcion'])){
 		if($_REQUEST['opcion']==1 || $_REQUEST['opcion']==3 ){ // crea enlace con emisora
 			
-			$inicio=substr ($_REQUEST['ruta'] ,0,-4 )."index.html";
+			$inicio=substr($_REQUEST['ruta'] ,0,-4 )."php/contenido_iframe.php";//"index.html";
 			$prueba=explode("/",$_REQUEST['ruta']);
 			$ruta_prov='';
 			for($i=0;$i<count($prueba)-4;$i++){

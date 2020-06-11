@@ -1,9 +1,9 @@
 <?php
-	if (is_file("../json/generos.json")) {
+	if (is_file("../json/generos.json")){ //or die('no')) file_put_contents("php://output", "=====>> ".'no existe'); //{
 		$datos_generos= file_get_contents("../json/generos.json");
 		$array_generos = json_decode($datos_generos, true);
 		foreach ($array_generos as $key => $genero) {
-				$lista=showFiles('../../audios/'.$genero["carpeta"].'/');
+				$lista=showFiles('../audios/'.$genero["carpeta"].'/');
 				if(count($lista)!=count($genero["lista"])){
 					$genero_nuevo = array (
 						'ID' 						=> $genero['ID'],
@@ -38,7 +38,7 @@
 		$datos_comerciales = file_get_contents("../json/comerciales.json");
 		$array_comerciales = json_decode($datos_comerciales, true);
 		foreach ($array_comerciales as $key => $comercial) {
-				$lista=showFiles('../../audios/'.$comercial["carpeta"].'/');
+				$lista=showFiles('../audios/'.$comercial["carpeta"].'/');
 				if(count($lista)!=count($comercial["lista"])){
 					
 					$comercial_nuevo = array (
@@ -69,6 +69,7 @@
 	}
 	
 	function showFiles($path){
+		file_put_contents("php://output", "=====>> ".$path);
 		$dir = opendir($path);
 		$files = array();
 		while ($current = readdir($dir)){
@@ -79,5 +80,5 @@
 		closedir($dir);
 		return $files;
 	}
-	//echo 'super';
+	//echo 'super'
 ?>

@@ -1,5 +1,5 @@
 <?php
-	$lista=showFiles('../../audios/'.$_POST["listcarp"].'/');
+	$lista=showFiles('../audios/'.$_POST["listcarp"].'/');
 	sort($lista);
 	if($_REQUEST['opcion']==0)
 		$ID_COMERCIAL=$_POST["id_comercial"];

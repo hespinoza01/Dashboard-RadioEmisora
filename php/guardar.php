@@ -15,15 +15,15 @@
 	$switchopctions_musica = $_POST['switchopctions_musica'];
 
 	if ($switchopctions_audios==1) { // Nueva Carpeta
-		$directorio_base64 = '../../audios/'.$namecarpaudio.'/'; // Declaramos un  variable con la ruta donde guardaremos los archivos de BASE64
+		$directorio_base64 = '../audios/'.$namecarpaudio.'/'; // Declaramos un  variable con la ruta donde guardaremos los archivos de BASE64
 	} else { // Carpeta
-		$directorio_base64 = '../../audios/'.$nameselectaudio.'/'; // Declaramos un  variable con la ruta donde guardaremos los archivos de BASE64
+		$directorio_base64 = '../audios/'.$nameselectaudio.'/'; // Declaramos un  variable con la ruta donde guardaremos los archivos de BASE64
 	}
 
 	if ($switchopctions_musica==1) { // Nueva Carpeta
-		$directorio = '../../audios/'.$nomcarp.'/'; // Declaramos un  variable con la ruta donde guardaremos los archivos
+		$directorio = '../audios/'.$nomcarp.'/'; // Declaramos un  variable con la ruta donde guardaremos los archivos
 	} else { // Carpeta
-		$directorio = '../../audios/'.$listnamemusica.'/'; // Declaramos un  variable con la ruta donde guardaremos los archivos
+		$directorio = '../audios/'.$listnamemusica.'/'; // Declaramos un  variable con la ruta donde guardaremos los archivos
 	}
 
 

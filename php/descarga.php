@@ -1,6 +1,6 @@
 <?php
 
-$nombrebs64 = '../../audios/'.$_POST['listnameaudiosdescarga'];
+$nombrebs64 = '../audios/'.$_POST['listnameaudiosdescarga'];
 
 // Get real path for our folder
 $rootPath = realpath($nombrebs64);

@@ -69,13 +69,13 @@
 			'carpeta_link'	=> $_POST['carpeta_link']
 			
 		);
-		$fh = fopen("../json/webaudio.json", 'w');
+		$fh = fopen("../json/webaudio.json", 'w') or die("Unable to open file webaudio.json! ".__DIR__);
 		fwrite($fh, json_encode($webaudio,JSON_UNESCAPED_UNICODE));
 		$code=fclose($fh);
 	}
 	
 	$revolver="false";
-	if (is_file("../json/general.json")) {
+	if (is_file("../json/general.json") or die("Unable to open file general.json if! ".__DIR__)) { echo("alert('into if')");
 		$datos_general= file_get_contents("../json/general.json");
 		$array_general = json_decode($datos_general, true);
 		if($array_general['RANDOM'] != $_POST["revolver_generos"] || $array_general['SEPARAR_GENERO'] != $_POST["separar_genero"] || $array_general['PIZZICATO'] != $_POST["pizzicato"] || $array_general['tiempo_inactividad'] != $_POST["inactividad"] ||
@@ -104,7 +104,7 @@
 		fwrite($fh, json_encode($array_general,JSON_UNESCAPED_UNICODE));
 	}
 	else{
-		$fh = fopen("../json/general.json", 'w');
+		$fh = fopen("../json/general.json", 'w') or die("Unable to open file gereral.json else! ".__DIR__);
 		fwrite($fh, json_encode($variable_new,JSON_UNESCAPED_UNICODE));
 	}
 	
@@ -123,8 +123,8 @@
 		$fh = fopen($ruta, 'w');
 		fwrite($fh, json_encode($array_lista,JSON_UNESCAPED_UNICODE));
 		$codigo=fclose($fh);
-	}
-*/	
+	}*/
+
 	if ($code==true) {
 		echo "<img style='margin-left:45%; margin-top:15%;' src='../imagenes/descarga.jpg'><br><h1 style='margin-left:45%'>Registro Exitoso...</h1>";
 		echo "<script>setTimeout(function(){window.location='../php/configuracion_general.php';}, 2000);</script>";
@@ -133,5 +133,4 @@
 		echo "<script>alert('Problemas al guardar');</script>";
 		echo "<script>window.location='../php/configuracion_general.php';</script>";
 	}
-
 ?>

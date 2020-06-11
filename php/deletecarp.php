@@ -1,7 +1,7 @@
 <?php
 
 
-$directorio =  '../../audios/'.$_POST['listcarp'];
+$directorio =  '../audios/'.$_POST['listcarp'];
 
 function deleteDirectory($dir) {
     if (!file_exists($dir)) {

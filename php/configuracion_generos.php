@@ -290,7 +290,7 @@ function listar_ID_Comerciales(){
 			 </div>
 			 <div class="col-6 fz-20">
 					<span>Carpeta del Género:</span>
-					<?php echo listar_directorios_ruta("../../audios/"); ?>
+					<?php echo listar_directorios_ruta("../audios/"); ?>
 				<br>
 				<span>Seleccionar ID Comercial:</span>
 					<?php echo listar_ID_Comerciales(); ?>

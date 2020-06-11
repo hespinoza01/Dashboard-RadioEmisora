@@ -1,5 +1,5 @@
 <?php
-	$lista=showFiles('../../audios/'.$_POST["listcarp"].'/');
+	$lista=showFiles('../audios/'.$_POST["listcarp"].'/');
 	sort($lista);
 	if($_REQUEST['opcion']==0)
 		$ID_GENERO=$_POST["id_genero"];
