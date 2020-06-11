@@ -178,7 +178,7 @@
 			border: 2px solid #0000;
 			border-radius: 50%;
 			outline:none;
-			margin: 0 22px;
+			/*margin: 0 22px;*/
 			cursor: pointer;
 			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 		}
@@ -235,6 +235,15 @@
 		.info #muted .active{
 			background: royalblue;
 		}
+
+		.cont{
+			display: flex;
+			flex-direction: row;
+			justify-content: space-evenly;
+			align-items: center;
+			width: 279px;
+			margin: 0 auto;
+		}
 		/* Se le agrega el tipo de letra */
 	/*	#timeProgress {
 			font-family: 'timesOne';
@@ -264,7 +273,7 @@
 
 <body onload='sincronizar();'>
 	<CENTER>
-		<img class='imagen_emisora' id='imagen_emisora' style="border-radius:10%; " src="imagenes/logo.png" alt="" width="70" height="70"/>
+		<img class='imagen_emisora' id='imagen_emisora' style="border-radius:10%; " src="imagenes/LOGO.png" alt="" width="70" height="70"/>
 		<div class='titulo_emisora' id='titulo_emisora'>Radio Maracaibo</div>
 		<div class='slogan_emisora' id='slogan_emisora'>La Radio Alegre</div>
 		<br>
