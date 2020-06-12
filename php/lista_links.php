@@ -80,6 +80,7 @@
                 padding: .35rem .5rem;
                 text-align: center;
                 vertical-align: center;
+                width: 20vw;
             }
             .th-1{ background-color: #949191; }
             .th-2{ background-color: #000000; color: #ffffff; }
@@ -158,7 +159,7 @@
                                     $fecha_final=$item['fecha_final'];
                                     $segundoTimes = strtotime(date('Y-m-d G:i:s')) - strtotime($fecha_final);
 
-                                    $estado = ($segundoTimes>0) ? "<td style='color: red'>INACTIVO</td>" : "<td style='color: green'>ACTIVO</td>";
+                                    $estado = ($segundoTimes>0) ? "<td style='color: red'>VENCIDO</td>" : "<td style='color: green'>ACTIVO</td>";
 
                                     $row = "<tr>";
                                     $row = $row."<td>".id($i, count($array))."</td>";
