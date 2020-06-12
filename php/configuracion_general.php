@@ -501,7 +501,7 @@ function listar_variables(){
 			<br>
 			_____________________________________
 			<br>
-			<span>Datos de Link Generados: </span> <img onclick='verificar_link();' src="../imagenes/refresh.png" title='Refrescar Links' width='25' height='25' />
+			<span>Datos de Link Generados: </span> <img onclick='verificar_link();' src="../imagenes/refresh.png" title='Refrescar Links' width='25' height='25' /> <button onclick="onClickVerLinks(); return false;" style="width: 75px; height: 25px;" title="Ver Links">Ver Links</button>
 			<br><br>
 			<span>Carpeta:</span>
 			<input type="text" name="carpeta_link" id="carpeta_link" style='width:230px' value="Link" autocomplete="off"/>
@@ -602,6 +602,10 @@ function listar_variables(){
 			var pathName = loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
 			return loc.href.substring(0, loc.href.length - ((loc.pathname + loc.search + loc.hash).length - pathName.length));
 		}
+
+        function onClickVerLinks(){
+            window.open('lista_links.php','_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=30%,left=200,width=900,height=600');
+        }
 		
 	</script>
 	

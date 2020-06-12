@@ -40,13 +40,26 @@
 			}
 			if($modo_duracion=='YEARS'){
 				$nuevafecha = strtotime ( '+'.intval ($duracion)*(8760).' hour' , strtotime ( $fecha ) );
-			}			
-			
+			}
+
+			if (is_file("../json/webaudio.json")) {
+                $webaudio = file_get_contents("../json/webaudio.json");
+                $webaudio = json_decode($webaudio, true);
+                $modo_duracion = $webaudio['modo_duracion'];
+            }
+
+            $modo = array(
+                "YEARS" => "AÑOS",
+                "MINUTES" => "MINUTOS",
+                "HOURS" => "HORAS"
+            );		
+
 			// guarda enlance en link_es.json
 			$enlace_new = array (
 					'enlace' 						=> $_REQUEST['enlace'],
 					'fecha_generada' 				=> $fecha,
-					'fecha_final'					=> 	date ( 'Y-m-j G:i:s' , $nuevafecha )		
+					'fecha_final'					=> 	date ( 'Y-m-j G:i:s' , $nuevafecha ),
+					'modo_duracion'					=> $modo[$modo_duracion]		
 			);
 			
 			if (is_file("../json/link_es.json")) {
