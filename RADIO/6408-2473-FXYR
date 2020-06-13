@@ -6,13 +6,13 @@
 								<meta http-equiv='Pragma' content='no-cache'>
 								<meta http-equiv='Expires' content='0'>
 								<meta http-equiv='Last-Modified' content='0'>
-								<link rel='icon' type='image/ico' href='http://localhost:9000/imagenes/BALON-LINKS.png' sizes='250x250'>
-								<script src='http://localhost:9000/js/jquery.min.js'></script>
+								<link rel='icon' type='image/ico' href='http://localhost/Dashboard-RadioEmisora/imagenes/BALON-LINKS.png' sizes='250x250'>
+								<script src='http://localhost/Dashboard-RadioEmisora/js/jquery.min.js'></script>
 								<script>
 																
 									function verificar_expiracion(){
 										var req = new XMLHttpRequest();
-										req.open('GET', 'http://localhost:9000/php/verificar_expiration_link.php?enlace=2188-9210-DQWQ&hosting=../RADIO/', false);
+										req.open('GET', 'http://localhost/Dashboard-RadioEmisora/php/verificar_expiration_link.php?enlace=6408-2473-FXYR&hosting=../RADIO/', false);
 										req.onload = onLoad;
 										req.send(null); 
 										function onLoad(e) {
@@ -26,7 +26,7 @@
 									}
 								</script>	
 								<body onload='verificar_expiracion();'>
-									<iframe id='formInicio' src='http://localhost:9000/php/contenido_iframe.php' frameBorder='0' scrolling='no' style='width:100%; height:100%;'></iframe>
+									<iframe id='formInicio' src='http://localhost/Dashboard-RadioEmisora/php/contenido_iframe.php' frameBorder='0' scrolling='no' style='width:100%; height:100%;'></iframe>
 								</body>
 							</html>
 				

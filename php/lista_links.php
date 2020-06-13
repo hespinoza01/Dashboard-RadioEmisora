@@ -119,20 +119,28 @@
                             $array = json_decode($datos, true);
                             $i = 1;
 
-                            function id($value, $len){
-                                $value = strval($value);
-                                $len = strval($len);
-                                $value_len = strlen($value);
-                                $len_len = strlen($len);
+                            $protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+                            $serverhost = $protocol.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+                            $current = "php/".basename($_SERVER["SCRIPT_FILENAME"]);
 
-                                return ($value_len < $len_len) ? str_repeat('0', $len_len - $value_len).$value : $value;
+                            $fullpath = substr($serverhost, 0, -(strlen($current)));
+
+                            function id($value){
+                                $value = strval($value);
+                                $value_len = strlen($value);
+
+                                $value = ($value_len < 9) ? str_repeat('0', (9 - $value_len)).$value : $value;
+
+                                return wordwrap($value, 3, '-', true);
                             }
 
                             if($_SERVER['REQUEST_METHOD'] == "POST"){
+
                                 if (is_file("../json/webaudio.json")) {
                                     $webaudio= file_get_contents("../json/webaudio.json");
                                     $webaudio = json_decode($webaudio, true);
                                     $carpeta = $webaudio['carpeta_link'];
+                                    $GLOBALS['fullpath'] = $GLOBALS['fullpath'].$webaudio['carpeta_link']."/";
                                 }
 
                                 $carpeta = '../'.$carpeta.'/';
@@ -162,12 +170,12 @@
                                     $estado = ($segundoTimes>0) ? "<td style='color: red'>VENCIDO</td>" : "<td style='color: green'>ACTIVO</td>";
 
                                     $row = "<tr>";
-                                    $row = $row."<td>".id($i, count($array))."</td>";
+                                    $row = $row."<td>".id($i)."</td>";
                                     $row = $row."<td>".$item['modo_duracion']."</td>";
-                                    $row = $row."<td>".$item['enlace']."</td>";
+                                    $row = $row."<td><a href='".$fullpath.$item['enlace']."' target='_blank'>".$item['enlace']."</a></td>";
                                     $row = $row.$estado;
                                     $row = $row."</tr>";
-
+ 
                                     echo $row;
                                     $i++;
                                 }

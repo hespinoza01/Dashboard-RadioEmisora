@@ -3,12 +3,13 @@
 	if(isset($_REQUEST['opcion'])){
 		if($_REQUEST['opcion']==1 || $_REQUEST['opcion']==3 ){ // crea enlace con emisora
 			
-			$inicio=substr($_REQUEST['ruta'] ,0,-4 )."php/contenido_iframe.php";//"index.html";
-			$prueba=explode("/",$_REQUEST['ruta']);
-			$ruta_prov='';
-			for($i=0;$i<count($prueba)-4;$i++){
+			$fullpath = substr($_REQUEST['ruta'], 0, -4);
+			$inicio=$fullpath."php/contenido_iframe.php";//"index.html";
+			$ruta_prov='../'; 
+			//die("inicio: ".$inicio." - ".$_REQUEST['ruta']." - ".$_SERVER['DOCUMENT_ROOT']);
+			/*for($i=0;$i<count($prueba)-4;$i++){
 					$ruta_prov=$ruta_prov."../";
-			}
+			}*/
 			
 			if (is_file("../json/webaudio.json")) {
 				$datos_webaudio= file_get_contents("../json/webaudio.json");
@@ -21,11 +22,13 @@
 			}
 		
 			$carpeta=str_replace(' ','_',$carpeta);
-			$ruta=$_REQUEST['ruta_hosting'].$carpeta.'/'.$_REQUEST['enlace'];
-			$directorio=$ruta_prov.$carpeta.'/';		
+			//$ruta=$_REQUEST['ruta_hosting'].$carpeta.'/'.$_REQUEST['enlace'];
+			$ruta=$fullpath.$carpeta.'/'.$_REQUEST['enlace'];
+			$directorio=$ruta_prov.$carpeta.'/';	
+			//die("carpeta: ".$carpeta." - ".$_REQUEST['enlace']." - ".$ruta);	
 			//Validamos si la ruta de destino existe, en caso de no existir la creamos
 			if(!file_exists($directorio)){
-				mkdir($directorio, 0777) or die("No se puede crear el directorio de extracci&oacute;n");	
+				mkdir($directorio, 0777) or die($directorio." - ".$ruta.": No se puede crear el directorio de extracci&oacute;n");	
 			}
 
 			$ruta_absoluta=$directorio.$_REQUEST['enlace'];
@@ -433,11 +436,13 @@
 		}
 		
 		function ruta_hosting(){
-			var pos_link=ruta.indexOf("//");
+			/*var pos_link=ruta.indexOf("//");
 			var ruta_parcial=ruta.slice(pos_link+2);
 			var pos_link2=ruta_parcial.indexOf("/");
 			var ruta_inicial=ruta.slice(0,pos_link+pos_link2+3);
-			return ruta_inicial;
+			return ruta_inicial;*/
+			let hosting = getAbsolutePath();
+			return hosting.substring(0, hosting.length-4);
 		}
 		
 		function construir_enlace(generado){
