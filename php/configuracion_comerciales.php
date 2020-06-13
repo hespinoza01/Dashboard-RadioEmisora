@@ -281,7 +281,7 @@ function listar_directorios_ruta($ruta){
 			
 			<span>Carpeta del Comercial:</span>			
                	<div id="carp_comercial"> 
-					<?php echo listar_directorios_ruta("../audios/"); ?>
+					<?php echo listar_directorios_ruta("../../audios/"); ?>
 				</div>
 
 			<br>

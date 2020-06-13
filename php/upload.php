@@ -13,9 +13,9 @@ if(isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST")
 	$switchopctions_musica = $_POST['switchopctions_musica'];
 
 	if ($switchopctions_musica==1) { // Nueva Carpeta
-		$directorio ='../audios/'.$nomcarp.'/'; // Declaramos un  variable con la ruta donde guardaremos los archivos
+		$directorio ='../../audios/'.$nomcarp.'/'; // Declaramos un  variable con la ruta donde guardaremos los archivos
 	} else { // Carpeta
-		$directorio ='../audios/'.$listnamemusica.'/'; // Declaramos un  variable con la ruta donde guardaremos los archivos
+		$directorio ='../../audios/'.$listnamemusica.'/'; // Declaramos un  variable con la ruta donde guardaremos los archivos
 	}
 
 	//Validamos si la ruta de destino existe, en caso de no existir la creamos

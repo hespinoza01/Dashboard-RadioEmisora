@@ -3,7 +3,7 @@
 		$datos_generos= file_get_contents("../json/generos.json");
 		$array_generos = json_decode($datos_generos, true);
 		foreach ($array_generos as $key => $genero) {
-				$lista=showFiles('../audios/'.$genero["carpeta"].'/');
+				$lista=showFiles('../../audios/'.$genero["carpeta"].'/');
 				if(count($lista)!=count($genero["lista"])){
 					$genero_nuevo = array (
 						'ID' 						=> $genero['ID'],
@@ -38,7 +38,7 @@
 		$datos_comerciales = file_get_contents("../json/comerciales.json");
 		$array_comerciales = json_decode($datos_comerciales, true);
 		foreach ($array_comerciales as $key => $comercial) {
-				$lista=showFiles('../audios/'.$comercial["carpeta"].'/');
+				$lista=showFiles('../../audios/'.$comercial["carpeta"].'/');
 				if(count($lista)!=count($comercial["lista"])){
 					
 					$comercial_nuevo = array (

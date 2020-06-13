@@ -88,7 +88,7 @@ function listar_directorios_descarga($ruta){
 
 	function listar_carpetas(){
 		//phpinfo();
-		$ruta='../audios/';
+		$ruta='../../audios/';
 		 echo "<span><strong>LISTA DE CARPETAS:</strong></span><br><br>";
 		 if (is_dir($ruta)) {
 		   if ($dh = opendir($ruta)) {
@@ -97,7 +97,7 @@ function listar_directorios_descarga($ruta){
 					 if (is_dir($ruta . $file) && $file!="." && $file!=".."){
 						$val64 = explode("_",$file);
 						if($val64[0]!="fonts" && $val64[0]!="js"&& $val64[0]!="AUDIOS"&& $val64[0]!="css"&& $val64[0]!="imagenes") {
-							$lista=showFiles('../audios/'.$file.'/');
+							$lista=showFiles('../../audios/'.$file.'/');
 							sort($lista);
 							$tmp_lista=[];
 							for($j=0;$j<count($lista);$j++){
@@ -335,7 +335,7 @@ $(document).ready(function()
             <div class="dis_1">
                 <span>Nombre Carpeta de Audios</span>
                 <!-- <?php // echo listar_directorios_audios("./audios/", "listnameaudios"); ?> -->
-                <?php echo listar_directorios_audios("../audios/", "listnamemusica"); ?>
+                <?php echo listar_directorios_audios("../../audios/", "listnamemusica"); ?>
                 <!-- <input type="text" name="namecarpaudio" id="namecarpaudio" class="fz-20" /> -->
                 <input type="text" name="nucarp" id="nucarp" class="formupload" />
             </div>
@@ -390,7 +390,7 @@ $(document).ready(function()
 
             <form action="../php/descarga.php" method="post">
                 <div class="stydownloader">
-                    <?php echo listar_directorios_descarga("../audios/"); ?>
+                    <?php echo listar_directorios_descarga("../../audios/"); ?>
                     <button type="submit" id="descargar" disabled>DOWNLOAD</button>
                 </div>
             </form>
@@ -402,7 +402,7 @@ $(document).ready(function()
             <div class="dis_3">
                 <form action="../php/deletecarp.php" method="post">
                     <span>Eliminar carpetas [ mp3 | ogg | ... ]</span> <br><br>
-                    <?php echo listar_directorios_ruta("../audios/"); ?>
+                    <?php echo listar_directorios_ruta("../../audios/"); ?>
                     <button type="submit">Eliminar</button>
                 </form>
             </div>
