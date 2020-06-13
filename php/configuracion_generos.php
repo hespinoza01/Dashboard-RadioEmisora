@@ -3,7 +3,7 @@ function listar_directorios_ruta($ruta){
     // abrir un directorio y listarlo recursivo
     if (is_dir($ruta)) {
         //echo '<select name="listcarp" id="listcarp" class="listcarp">'; 
-        echo '<select name="listcarp" id="listcarp" class="formupload">';
+        echo '<select required name="listcarp" id="listcarp" class="formupload">';
         echo '<option value="0" disabled selected>-Selecciona una carpeta-</option>';
        if ($dh = opendir($ruta)) {
         
@@ -32,7 +32,7 @@ function listar_directorios_ruta($ruta){
 function listar_ID_Comerciales(){
    if (is_file("../json/comerciales.json")) {
 	$tmp_comerciales=json_decode(file_get_contents("../json/comerciales.json"),true);    
-	echo '<select name="comercial_gen" id="comercial_gen" class="formupload">';
+	echo '<select required name="comercial_gen" id="comercial_gen" class="formupload">';
       echo '<option value="" disabled selected>-Selecciona un ID-</option>';
 	echo "<option value=''>Comercial General</option>";		
 	foreach ($tmp_comerciales as $key => $comercial) {
@@ -277,15 +277,15 @@ function listar_ID_Comerciales(){
 		<div class="container2">
 			 <div class="col-6 fz-20">
 			 <span>ID del Género:</span>
-				<input type="text" name="id_genero" id="id_genero"  class="formupload" autocomplete="off"/>
+				<input required type="text" name="id_genero" id="id_genero"  class="formupload" autocomplete="off"/>
 				<br>
 				
 				<span>Nombre del Género:</span>
-				<input type="text" name="name_genero" id="name_genero"  class="formupload" autocomplete="off"/>
+				<input required type="text" name="name_genero" id="name_genero"  class="formupload" autocomplete="off"/>
 				<br>
 		
 				<span>Cantidad de Tracks:</span>
-				<input type="text" name="n_tracks_generos" id="n_tracks_generos" value='0' class="formupload" autocomplete="off"/>
+				<input required type="text" name="n_tracks_generos" id="n_tracks_generos" value='0' class="formupload" autocomplete="off"/>
 				<br>
 			 </div>
 			 <div class="col-6 fz-20">
@@ -298,7 +298,7 @@ function listar_ID_Comerciales(){
 				<br>
 				<span>Modo de Revolver:</span>
 				<br>
-				<select name="revolver_lista" id="revolver_lista" class="formupload" onchange="verificar_modo(this.value);">
+				<select required name="revolver_lista" id="revolver_lista" class="formupload" onchange="verificar_modo(this.value);">
 					<option value="-1" disabled selected>Modo Revolver</option>
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -306,7 +306,7 @@ function listar_ID_Comerciales(){
 					<option value="4">4</option>
 				</select>
 				<br>
-					<select name="p_eliminar" id="p_eliminar" style=' display: none; font-size: 15px; width: 30%; margin-top: 5px;'>
+					<select required name="p_eliminar" id="p_eliminar" style=' display: none; font-size: 15px; width: 30%; margin-top: 5px;'>
 						<option value="-1" disabled selected>% Eliminar</option>
 						<option value="12.5">12.5%</option>
 						<option value="25">25.0%</option>

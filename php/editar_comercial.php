@@ -3,7 +3,7 @@ function listar_directorios_ruta($ruta){
     // abrir un directorio y listarlo recursivo
     if (is_dir($ruta)) {
         //echo '<select name="listcarp" id="listcarp" class="listcarp">'; 
-        echo '<select name="listcarp" id="listcarp" class="formupload">';
+        echo '<select required name="listcarp" id="listcarp" class="formupload">';
         echo '<option value="0" disabled selected>-Selecciona una carpeta-</option>';
        if ($dh = opendir($ruta)) {
         
@@ -291,7 +291,7 @@ function listar_directorios_ruta($ruta){
 			<input type="text" name="id_comercial" id="id_comercial"  class="formupload" autocomplete="off"/>
 			<br>
 			<span>Tipo Comercial:</span>
-			<select name="tipo_comercial" id="tipo_comercial" class="formupload">
+			<select required name="tipo_comercial" id="tipo_comercial" class="formupload">
                 <option value="-1" disabled selected>Tipo Comercial</option>
               	<option value="1">1- General</option>
                 <option value="2">2- De Géneros</option>
@@ -300,14 +300,14 @@ function listar_directorios_ruta($ruta){
 			<br>
 
 			<span>Descripción del Comercial:</span>
-			<input type="text" name="name_comercial" id="name_comercial"  class="formupload" autocomplete="off"/>
+			<input required type="text" name="name_comercial" id="name_comercial"  class="formupload" autocomplete="off"/>
 			<br>
 			
 		 </div>
 			
 		 <div class="col-6 fz-20">
 						<span>Cantidad de Tracks:</span>
-			<input type="text" name="n_tracks_comercial" id="n_tracks_comercial" class="formupload" value='0' autocomplete="off"/>
+			<input required type="text" name="n_tracks_comercial" id="n_tracks_comercial" class="formupload" value='0' autocomplete="off"/>
 			<br>
 			
 			<span>Carpeta del Comercial:</span>			
@@ -317,7 +317,7 @@ function listar_directorios_ruta($ruta){
 
 			<br>
 			<span>Modo de Revolver:</span>
-			<select name="revolver_comercial" id="revolver_comercial" class="formupload" onchange="verificar_modo(this.value);">
+			<select required name="revolver_comercial" id="revolver_comercial" class="formupload" onchange="verificar_modo(this.value);">
                 <option value="0" disabled selected>Modo Revolver</option>
               	<option value="1">1</option>
                 <option value="2">2</option>
@@ -325,7 +325,7 @@ function listar_directorios_ruta($ruta){
 				<option value="4">4</option>
             </select>
 			<br>
-					<select name="p_eliminar" id="p_eliminar" style=' display: none; font-size: 15px; width: 30%; margin-top: 5px;'>
+					<select required name="p_eliminar" id="p_eliminar" style=' display: none; font-size: 15px; width: 30%; margin-top: 5px;'>
 						<option value="-1" disabled selected>% Eliminar</option>
 						<option value="12.5">12.5%</option>
 						<option value="25">25.0%</option>

@@ -361,7 +361,7 @@ function listar_variables(){
     <div class="container2">
 		<div class="col-6 fz-20">
 			<span>Modo de Revolver los Géneros:</span>
-			<select name="revolver_generos" id="revolver_generos" class="formupload">
+			<select required name="revolver_generos" id="revolver_generos" class="formupload">
                 		<option value="-1" disabled selected>Modo Revolver</option>
                 		<option value="0">0- SIN RANDOM</option>
 				<option value="1">1- FISHER YATES</option>
@@ -370,14 +370,14 @@ function listar_variables(){
             		</select>
 			<br>
 			<span>Separar Géneros Iguales:</span>
-			<select name="separar_genero" id="separar_genero" class="formupload">
+			<select required name="separar_genero" id="separar_genero" class="formupload">
                 <option value="-1" disabled selected>Modo de Separar</option>
                 <option value="1">1- LIBRE</option>
 				<option value="2">2- SEPARAR</option>
             </select>
 			<br>
 			<span>Efectos Pizzicato:</span>
-			<select name="pizzicato" id="pizzicato" class="formupload">
+			<select required name="pizzicato" id="pizzicato" class="formupload">
                 <option value="-1" disabled selected>Modo Pizzicato</option>
                 <option value="0">0- SIN EFECTO</option>
 				<option value="1">1- EFECTOS EN LOS GÉNEROS</option>
@@ -388,17 +388,17 @@ function listar_variables(){
 		 </div>
 		 <div class="col-6 fz-20">
 			<span>Tiempo de Inactividad (Minutos):</span>
-			<input type="text" name="inactividad" id="inactividad" class="formupload" value="0" autocomplete="off"/>
+			<input required type="text" name="inactividad" id="inactividad" class="formupload" value="0" autocomplete="off"/>
 			<br>
 			<span>Sincronizar:</span>
-			<select name="sincro" id="sincro" class="formupload">
+			<select required name="sincro" id="sincro" class="formupload">
                 <option value="-1" disabled selected>Modo Sincronizar</option>
                 <option value="0">0- CANCIONES</option>
 				<option value="1">1- CANCIONES Y TIEMPO</option>
             </select>
 			<br>
 			<span>Cantidad de Rondas:</span>
-			<input type="text" name="ronda" id="ronda" class="formupload" value="0" autocomplete="off"/>
+			<input required type="text" name="ronda" id="ronda" class="formupload" value="0" autocomplete="off"/>
 			<br>
 		 </div>
     </div>
@@ -407,49 +407,49 @@ function listar_variables(){
 		
 		<div class="col-6 fz-20">
 			<span>Nombre Emisora:</span>
-			<input type="text" name="nombre_emisora" id="nombre_emisora" class="formupload" value="" autocomplete="off"/>
+			<input required type="text" name="nombre_emisora" id="nombre_emisora" class="formupload" value="" autocomplete="off"/>
 			<br>
 			<span>Color:</span>
-			<input type="text" name="color_emisora" id="color_emisora" style='width:80px' value="0" autocomplete="off"/>
+			<input required type="text" name="color_emisora" id="color_emisora" style='width:80px' value="0" autocomplete="off"/>
 		
 			<span>Tamaño Nombre(px):</span>
-			<input type="text" name="letra_emisora" id="letra_emisora" style='width:40px' value="0" autocomplete="off"/>
+			<input required type="text" name="letra_emisora" id="letra_emisora" style='width:40px' value="0" autocomplete="off"/>
 			<br>
 			_____________________________________
 			<br>
 			<span>URL o Ruta de Logo:</span>
-			<input type="text" name="url_logo" id="url_logo" class="formupload" value="" autocomplete="off"/>
+			<input required type="text" name="url_logo" id="url_logo" class="formupload" value="" autocomplete="off"/>
 			<span >Buscar Logo:</span>
 			<input type="file"  id="archivo2" name="archivo2"  style="margin-top: 15px;" />
 			<button type="button" onclick="cargar_imagen();" >Subir</button>
 			<br>
 			<br>
 			<span>Ancho Logo(px):</span>
-			<input type="text" name="ancho_logo" id="ancho_logo" style='width:40px' value="0" autocomplete="off"/>
+			<input required type="text" name="ancho_logo" id="ancho_logo" style='width:40px' value="0" autocomplete="off"/>
 			<span>Largo Logo(px):</span>
-			<input type="text" name="largo_logo" id="largo_logo" style='width:40px' value="0" autocomplete="off"/>
+			<input required type="text" name="largo_logo" id="largo_logo" style='width:40px' value="0" autocomplete="off"/>
 			<br>
 			<br>
 			<span>% Redondeo:</span>
-			<input type="text" name="redondeo" id="redondeo" style='width:40px' value="0" autocomplete="off"/> 
+			<input required type="text" name="redondeo" id="redondeo" style='width:40px' value="0" autocomplete="off"/> 
 		
 		 </div>
 		 <div class="col-6 fz-20">
 			<span>Slogan Emisora:</span>
-			<input type="text" name="slogan_emisora" id="slogan_emisora" class="formupload" value="" autocomplete="off"/>
+			<input required type="text" name="slogan_emisora" id="slogan_emisora" class="formupload" value="" autocomplete="off"/>
 			<br>
 			<span>Color:</span>
-			<input type="text" name="color_slogan" id="color_slogan" style='width:80px' value="0" autocomplete="off"/>
+			<input required type="text" name="color_slogan" id="color_slogan" style='width:80px' value="0" autocomplete="off"/>
 			<span>Tamaño Slogan(px):</span>
-			<input type="text" name="letra_slogan" id="letra_slogan" style='width:40px' value="0" autocomplete="off"/>
+			<input required type="text" name="letra_slogan" id="letra_slogan" style='width:40px' value="0" autocomplete="off"/>
 		 	<br>
 			_____________________________________
 			<br>
 			<span>Usuario:</span>
-			<input type="text" name="usuario" id="usuario" class="formupload" value="" autocomplete="off"/>
+			<input required type="text" name="usuario" id="usuario" class="formupload" value="" autocomplete="off"/>
 			<br>
 			<span>Clave:</span>
-			<input type="password" name="clave" id="clave" class="formupload" value="" autocomplete="off"/>
+			<input required type="password" name="clave" id="clave" class="formupload" value="" autocomplete="off"/>
 			<input type="checkbox" name='mostrarClave' id='mostrarClave' style="color:red;   border:1.5px solid blue;" onchange='verClave();' id="cbox1" value=""> Mostrar Clave
 			<br>
 		 </div>
@@ -463,25 +463,25 @@ function listar_variables(){
 			<br>
 			<br>
 			<span>Cuadro %:</span>
-			<input type="text" name="cuadro" id="cuadro" style='width:80px' value="" autocomplete="off"/>
+			<input required type="text" name="cuadro" id="cuadro" style='width:80px' value="" autocomplete="off"/>
 			<span>Número %:</span>
-			<input type="text" name="numero" id="numero" style='width:80px' value="" autocomplete="off"/>
+			<input required type="text" name="numero" id="numero" style='width:80px' value="" autocomplete="off"/>
 			<br>
 			<br>
 			<span>Signo %:</span>
-			<input type="text" name="signo" id="signo" style='width:80px' value="" autocomplete="off"/>
+			<input required type="text" name="signo" id="signo" style='width:80px' value="" autocomplete="off"/>
 			<br>
 			<br>
 			<span>Barra 1:</span>
-			<input type="text" name="barra1" id="barra1" style='width:80px' value="" autocomplete="off"/>
+			<input required type="text" name="barra1" id="barra1" style='width:80px' value="" autocomplete="off"/>
 			<span>Barra 2:</span>
-			<input type="text" name="barra2" id="barra2" style='width:80px' value="" autocomplete="off"/>
+			<input required type="text" name="barra2" id="barra2" style='width:80px' value="" autocomplete="off"/>
 			<br>
 			<br>
 			<span>Barra 3:</span>
-			<input type="text" name="barra3" id="barra3" style='width:80px' value="" autocomplete="off"/>
+			<input required type="text" name="barra3" id="barra3" style='width:80px' value="" autocomplete="off"/>
 			<span>Barritas:</span>
-			<input type="text" name="barritas" id="barritas" style='width:80px' value="" autocomplete="off"/>
+			<input required type="text" name="barritas" id="barritas" style='width:80px' value="" autocomplete="off"/>
 			<br>
 			_____________________________________
 			<br>
@@ -489,27 +489,27 @@ function listar_variables(){
 			<br>
 			<br>
 			<span>Números:</span>
-			<input type="text" name="tiempo" id="tiempo" style='width:80px' value="" autocomplete="off"/>
+			<input required type="text" name="tiempo" id="tiempo" style='width:80px' value="" autocomplete="off"/>
 			<span>2 Puntos:</span>
-			<input type="text" name="puntos" id="puntos" style='width:80px' value="" autocomplete="off"/>
+			<input required type="text" name="puntos" id="puntos" style='width:80px' value="" autocomplete="off"/>
 			<br>
 			<br>
 			<span>Slash:</span>
-			<input type="text" name="slash" id="slash" style='width:80px' value="" autocomplete="off"/>
+			<input required type="text" name="slash" id="slash" style='width:80px' value="" autocomplete="off"/>
 			<span>Guión Negativo:</span>
-			<input type="text" name="guion" id="guion" style='width:80px' value="" autocomplete="off"/>
+			<input required type="text" name="guion" id="guion" style='width:80px' value="" autocomplete="off"/>
 			<br>
 			_____________________________________
 			<br>
 			<span>Datos de Link Generados: </span> <img onclick='verificar_link();' src="../imagenes/refresh.png" title='Refrescar Links' width='25' height='25' /> <button onclick="onClickVerLinks(); return false;" style="width: 75px; height: 25px;" title="Ver Links">Ver Links</button>
 			<br><br>
 			<span>Carpeta:</span>
-			<input type="text" name="carpeta_link" id="carpeta_link" style='width:230px' value="Link" autocomplete="off"/>
-            <input type="text" name="carpeta_link_vieja" id="carpeta_link_vieja" style='width:230px; display: none;' value="Link" autocomplete="off">
+			<input required type="text" name="carpeta_link" id="carpeta_link" style='width:230px' value="Link" autocomplete="off"/>
+            <input required type="text" name="carpeta_link_vieja" id="carpeta_link_vieja" style='width:230px; display: none;' value="Link" autocomplete="off">
 			<br><br>
 			<span>Duración: </span>
-			<input type="text" name="tiempo_duracion" id="tiempo_duracion" style='width:80px' value="" autocomplete="off"/>
-			<select name="modo_duracion" id="modo_duracion" style='width:130px'>
+			<input required type="text" name="tiempo_duracion" id="tiempo_duracion" style='width:80px' value="" autocomplete="off"/>
+			<select required name="modo_duracion" id="modo_duracion" style='width:130px'>
                 <option value="-1" disabled selected>Modo Duración</option>
                 <option value="MINUTES">MINUTOS</option>
 				<option value="HOURS">HORAS</option>
@@ -523,13 +523,13 @@ function listar_variables(){
 			<br>
 			<br>
 			<span>Transcurrido (px):</span>
-			<input type="text" name="tactual" id="tactual" style='width:80px' value="" autocomplete="off"/>
+			<input required type="text" name="tactual" id="tactual" style='width:80px' value="" autocomplete="off"/>
 			<br>
 			<br>
 			<span>Total (px):</span>
-			<input type="text" name="tduracion" id="tduracion" style='width:80px' value="" autocomplete="off"/>
+			<input required type="text" name="tduracion" id="tduracion" style='width:80px' value="" autocomplete="off"/>
 			<span>Restante (px):</span>
-			<input type="text" name="trestante" id="trestante" style='width:80px' value="" autocomplete="off"/>
+			<input required type="text" name="trestante" id="trestante" style='width:80px' value="" autocomplete="off"/>
 			<br>
 			_____________________________________
 			<br>
@@ -537,9 +537,9 @@ function listar_variables(){
 			<br>
 			<br>
 			<span>Ancho (px): </span>
-			<input type="text" name="iframe_ancho" id="iframe_ancho" style='width:80px' value="" autocomplete="off"/>
+			<input required type="text" name="iframe_ancho" id="iframe_ancho" style='width:80px' value="" autocomplete="off"/>
 			<span>Largo (px): </span>
-			<input type="text" name="iframe_largo" id="iframe_largo" style='width:80px' value="" autocomplete="off"/>
+			<input required type="text" name="iframe_largo" id="iframe_largo" style='width:80px' value="" autocomplete="off"/>
 		
 			<br>
 			_____________________________________

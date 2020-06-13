@@ -125,6 +125,12 @@
 
                             $fullpath = substr($serverhost, 0, -(strlen($current)));
 
+                            if (is_file("../json/webaudio.json")) {
+                                $webaudio= file_get_contents("../json/webaudio.json");
+                                $webaudio = json_decode($webaudio, true);
+                                $GLOBALS['fullpath'] = $GLOBALS['fullpath'].$webaudio['carpeta_link']."/";
+                            }
+
                             function id($value){
                                 $value = strval($value);
                                 $value_len = strlen($value);

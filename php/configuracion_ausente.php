@@ -33,6 +33,7 @@ function listar_generos(){
 						input.name = 'ausente'+i+'[]';
 						input.id = 'ausente'+i+''+j;
 						input.autocomplete='off';
+                        input.required = true;
 									
 						input.style= 'text-align: center; width:20px; margin-left:10px; font-size:25px; color:red; font-weight: bold; border:1.5px solid blue;';
 						padre.appendChild(input);	
@@ -250,10 +251,10 @@ function listar_generos(){
 			<br>
 			<div class="col-6 fz-20">
 				<span>Cantidad de Vueltas: &nbsp; </span>
-				<input type="text" name="N_Vueltas" id="N_Vueltas"  autocomplete="off"/> <span>&nbsp; </span>
+				<input required type="text" name="N_Vueltas" id="N_Vueltas"  autocomplete="off"/> <span>&nbsp; </span>
 				
-				<input type="button" value="Mostrar" id="generar_matriz" Onclick="matriz(N_Vueltas.value);"></input>
-				<input type="submit" value="Guardar" id="a_p_guardar"></input>
+				<input required type="button" value="Mostrar" id="generar_matriz" Onclick="matriz(N_Vueltas.value);"></input>
+				<input required type="submit" value="Guardar" id="a_p_guardar"></input>
 				<br>
 				<br>
 				<?php echo listar_generos(); ?>
@@ -276,6 +277,7 @@ function listar_generos(){
 				input.id = "ausente"+i+""+j;
 				input.value=1;
 				input.autocomplete="off";
+                input.required = true;
 				input.style= 'text-align: center; width:20px; margin-left: 10px; font-size:25px; font-weight: bold; color:green; border:1.5px solid blue;';
 				//input.maxlength="1";
 				//input.onkeypress='return event.charCode >= 48 && event.charCode <= 49';

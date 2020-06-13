@@ -1,4 +1,6 @@
 <?php
+	//print_r($_POST);
+	//die('</br>end');
 	$lista=showFiles('../../audios/'.$_POST["listcarp"].'/');
 	sort($lista);
 	if($_REQUEST['opcion']==0)
@@ -24,7 +26,7 @@
 		'ultima'					=> '',
 		'posicion_Perm' 				=> '0',
 		'seleccion_pasado'				=> array(),
-		'ID_comerciales_generos' 			=> $_POST["comercial_gen"],
+		'ID_comerciales_generos' 			=> $_POST["comercial_gen"] or "",
 		'modo_revolver'					=> $_POST["revolver_lista"],
 		'p_eliminar'					=> $p_eliminar
 	);

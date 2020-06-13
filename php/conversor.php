@@ -4,7 +4,7 @@ function listar_directorios_ruta($ruta){
     // abrir un directorio y listarlo recursivo
     if (is_dir($ruta)) {
         //echo '<select name="listcarp" id="listcarp" class="listcarp">'; 
-        echo '<select name="listcarp" id="listcarp" class="listcarp">';
+        echo '<select required name="listcarp" id="listcarp" class="listcarp">';
         echo '<option value="0" disabled selected>-Selecciona una carpeta-</option>';
        if ($dh = opendir($ruta)) {
         
@@ -32,7 +32,7 @@ function listar_directorios_ruta($ruta){
 function listar_directorios_audios($ruta, $name){
     // abrir un directorio y listarlo recursivo
     if (is_dir($ruta)) {
-        echo '<select name="'.$name.'" id="'.$name.'" class="'.$name.' fz-15">';
+        echo '<select required name="'.$name.'" id="'.$name.'" class="'.$name.' fz-15">';
         echo '<option value="0" disabled selected>-Selecciona una carpeta-</option>';
        if ($dh = opendir($ruta)) {
         
@@ -363,7 +363,7 @@ $(document).ready(function()
 </form> -->
 
         <form name="formUpload" id="formUpload" method="post" action="javascript:void(0);" enctype="multipart/form-data">
-            <select name="optype" id="optype" class="formupload">
+            <select required name="optype" id="optype" class="formupload">
                 <option value="0" disabled selected>Elegir Extensión de Archivo a Convertir</option>
 			<option value="1">SIN CONVERSION</option>
                 <option value=".txt">TXT</option>
@@ -376,7 +376,7 @@ $(document).ready(function()
             </select>
                    
 
-            <input type="file" class="form-control" id="archivo" name="archivo[]" multiple="" style="margin-top: 15px;" onclick="limpiarAddFile();"/>
+            <input required type="file" class="form-control" id="archivo" name="archivo[]" multiple="" style="margin-top: 15px;" onclick="limpiarAddFile();"/>
             <button type="submit" id="uploader" >Subir</button>
 			<div class="ultarchivo">
                 <span>Nombre de último archivo convertido</span>
