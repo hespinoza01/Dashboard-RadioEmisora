@@ -114,9 +114,11 @@
                 </thead>
                 <tbody>
                     <?php 
+                        require_once 'data.php';
+
                         if (is_file("../json/link_es.json")){
-                            $datos = file_get_contents("../json/link_es.json");
-                            $array = json_decode($datos, true);
+                            $datos = new Link_es();
+                            $array = $datos->Load()->Get();
                             $i = 1;
 
                             $protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
@@ -126,8 +128,8 @@
                             $fullpath = substr($serverhost, 0, -(strlen($current)));
 
                             if (is_file("../json/webaudio.json")) {
-                                $webaudio= file_get_contents("../json/webaudio.json");
-                                $webaudio = json_decode($webaudio, true);
+                                $webaudio= new Webaudio();
+                                $webaudio = $webaudio->Load()->Get();
                                 $GLOBALS['fullpath'] = $GLOBALS['fullpath'].$webaudio['carpeta_link']."/";
                             }
 
@@ -143,8 +145,8 @@
                             if($_SERVER['REQUEST_METHOD'] == "POST"){
 
                                 if (is_file("../json/webaudio.json")) {
-                                    $webaudio= file_get_contents("../json/webaudio.json");
-                                    $webaudio = json_decode($webaudio, true);
+                                    $webaudio= new Webaudio();
+                                    $webaudio = $webaudio->Load()->Get();
                                     $carpeta = $webaudio['carpeta_link'];
                                     $GLOBALS['fullpath'] = $GLOBALS['fullpath'].$webaudio['carpeta_link']."/";
                                 }
@@ -162,9 +164,8 @@
                                     }
                                 }
 
-                                $fh = fopen("../json/link_es.json", 'w');
-                                fwrite($fh, json_encode($array,JSON_UNESCAPED_UNICODE));
-                                $code=fclose($fh);
+                                $datos->Set($array);
+                                $code = $datos->Save();
                             }
 
                             if(count($array) > 0){

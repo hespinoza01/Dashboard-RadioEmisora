@@ -1,7 +1,11 @@
 <?php
+
+require_once 'data.php';
+
 	if (is_file("../json/link_es.json")) {
-		$datos_enlace= file_get_contents("../json/link_es.json");
-		$array_enlace = json_decode($datos_enlace, true);
+		$datos_enlace= new Link_es();
+		$array_enlace = $datos_enlace->Load()->Get();
+
 		foreach ($array_enlace as $key => $enlace) {
 			if ( $enlace['enlace']== $_REQUEST['enlace']) {
 
@@ -14,9 +18,9 @@
 					unlink($_REQUEST['hosting'].$_REQUEST['enlace']);
 					unset($array_enlace[$key]);
 					$array_enlace =array_values($array_enlace);
-					$fh = fopen("../json/link_es.json", 'w');
-					fwrite($fh, json_encode($array_enlace,JSON_UNESCAPED_UNICODE));
-					$code=fclose($fh); 
+
+					$datos_enlace->Set($array_enlace);
+					$datos_enlace->Save();
 					echo 'true';
 					die();
 				}

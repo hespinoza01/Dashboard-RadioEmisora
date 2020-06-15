@@ -1,10 +1,14 @@
 ﻿<?php
+
+require_once 'data.php';
+
 function listar_directorios_ruta($ruta){
     // abrir un directorio y listarlo recursivo
     if (is_dir($ruta)) {
         //echo '<select name="listcarp" id="listcarp" class="listcarp">'; 
         echo '<select name="listcarp" id="listcarp" class="formupload">';
-        echo '<option value="0" disabled selected>-Selecciona una carpeta-</option>';
+        echo '<option value disabled selected>-Selecciona una carpeta-</option>';
+
        if ($dh = opendir($ruta)) {
         
           while (($file = readdir($dh)) !== false) {
@@ -31,10 +35,15 @@ function listar_directorios_ruta($ruta){
 
 function listar_ID_Comerciales(){
    if (is_file("../json/comerciales.json")) {
-	$tmp_comerciales=json_decode(file_get_contents("../json/comerciales.json"),true);    
+    $comerciales = new Comerciales();
+	$tmp_comerciales = $comerciales->Load()->Get();
+
 	echo '<select name="comercial_gen" id="comercial_gen" class="formupload">';
-      echo '<option value="" disabled selected>-Selecciona un ID-</option>';
-	echo "<option value=''>Comercial General</option>";		
+
+    echo '<option value disabled selected>-Selecciona un ID-</option>';
+
+	echo "<option value=''>Comercial General</option>";
+
 	foreach ($tmp_comerciales as $key => $comercial) {
 		if($comercial['tipo']==2){
 			echo "<option value=$comercial[ID]>$comercial[ID]-$comercial[descripcion]</option>";		
@@ -44,68 +53,69 @@ function listar_ID_Comerciales(){
    }
 }
 
-	function mostrar_genero(){
-		$datos_generos = file_get_contents("../json/generos.json");
-		$array_generos = json_decode($datos_generos, true);
-		foreach ($array_generos as $key => $genero) {
-			if ( $genero['ID']==$_REQUEST['ID']) {
-				echo " 
-					<script>
-						document.getElementById('id_genero').value='$genero[ID]'; // MOSTRAR ID GENERO
-						document.getElementById('name_genero').value='$genero[Name]'; // MOSTRAR NOMBRE DEL GENERO
-						document.getElementById('n_tracks_generos').value='$genero[Ntracks]'; // MUESTRA LOS N TRACKS
-					   
-					   var combo = document.getElementById('listcarp');
-					    var cantidad = combo.length;
-					    for (let i = 0; i < cantidad; i++) {
-							  if (combo[i].value == '$genero[carpeta]') {
-								 combo[i].selected = true;							// SELECCIONAR CARPETA DEL GENERO
-							  }   
-					    }
-						
-						var combo = document.getElementById('revolver_lista');
-					    var cantidad = combo.length;
-					    for (let i = 0; i < cantidad; i++) {
-							  if (combo[i].value == '$genero[modo_revolver]') {
-								 combo[i].selected = true;							// SELECCIONAR REVOLVER LISTA DEL GENERO
-							  }   
-					    }
-									
-						var combo = document.getElementById('comercial_gen');
-					    var cantidad = combo.length;
-					    for (let i = 0; i < cantidad; i++) {
-							  if (combo[i].value == '$genero[ID_comerciales_generos]') {
-								 combo[i].selected = true;							// SELECCIONAR ID COMERCIAL GENERO
-							  }   
-					    }
-												
-					</script>	
-				";
-				
-				if(isset($genero['p_eliminar'])){
-					echo "
-						<script>
-							if($genero[modo_revolver]==4){
-								document.getElementById('p_eliminar').style='display:block;';
+function mostrar_genero(){
+	$datos_generos = new Generos();
+	$array_generos = $datos_generos->Load()->Get();
+    
+	foreach ($array_generos as $key => $genero) {
+		if ( $genero['ID']==$_REQUEST['ID']) {
+			echo " 
+				<script>
+					document.getElementById('id_genero').value='$genero[ID]'; // MOSTRAR ID GENERO
+					document.getElementById('name_genero').value='$genero[Name]'; // MOSTRAR NOMBRE DEL GENERO
+					document.getElementById('n_tracks_generos').value='$genero[Ntracks]'; // MUESTRA LOS N TRACKS
+				   
+				   var combo = document.getElementById('listcarp');
+				    var cantidad = combo.length;
+				    for (let i = 0; i < cantidad; i++) {
+						  if (combo[i].getAttribute('value') == '$genero[carpeta]') {
+							 combo[i].selected = true;							// SELECCIONAR CARPETA DEL GENERO
+						  }   
+				    }
+					
+					var combo = document.getElementById('revolver_lista');
+				    var cantidad = combo.length;
+				    for (let i = 0; i < cantidad; i++) {
+						  if (combo[i].getAttribute('value') == '$genero[modo_revolver]') {
+							 combo[i].selected = true;							// SELECCIONAR REVOLVER LISTA DEL GENERO
+						  }   
+				    }
 								
-									var combo = document.getElementById('p_eliminar');
-									var cantidad = combo.length;
-									for (let i = 0; i < cantidad; i++) {
-										  if (combo[i].value == '$genero[p_eliminar]') {
-											 combo[i].selected = true;							// PORCENTAJE A ELIMINAR
-										  }   
-									}
-							}
-							else{
-								document.getElementById('p_eliminar').style='display:none;';
-							}
-						</script>
-					";
-				}
-				break;	
+					var combo = document.getElementById('comercial_gen');
+				    var cantidad = combo.length;
+				    for (let i = 0; i < cantidad; i++) {
+						  if (combo[i].getAttribute('value') == '$genero[ID_comerciales_generos]') {
+							 combo[i].selected = true;							// SELECCIONAR ID COMERCIAL GENERO
+						  }   
+				    }
+											
+				</script>	
+			";
+			
+			if(isset($genero['p_eliminar'])){
+				echo "
+					<script>
+						if($genero[modo_revolver]==4){
+							document.getElementById('p_eliminar').style='display:block;';
+							
+								var combo = document.getElementById('p_eliminar');
+								var cantidad = combo.length;
+								for (let i = 0; i < cantidad; i++) {
+									  if (combo[i].getAttribute('value') == '$genero[p_eliminar]') {
+										 combo[i].selected = true;							// PORCENTAJE A ELIMINAR
+									  }   
+								}
+						}
+						else{
+							document.getElementById('p_eliminar').style='display:none;';
+						}
+					</script>
+				";
 			}
+			break;	
 		}
 	}
+}
 
 
 ?>
@@ -328,7 +338,7 @@ function listar_ID_Comerciales(){
 				<span>Modo de Revolver:</span>
 				<br>
 				<select name="revolver_lista" id="revolver_lista" class="formupload" onchange="verificar_modo(this.value);">
-					<option value="-1" disabled selected>Modo Revolver</option>
+					<option value disabled selected>Modo Revolver</option>
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>

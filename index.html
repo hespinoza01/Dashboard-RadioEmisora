@@ -346,7 +346,7 @@
 							var responjson= JSON.parse(this.responseText);
 							// sicroniza la lista de variables
 							var l_var=JSON.parse(responjson.lista_variables);
-							var l_web=JSON.parse(responjson.lista_web);
+							var l_web=JSON.parse(responjson.lista_web); console.log(l_var, l_web);
 							
 							// VARIABLES DE DATOS EMISORA (LOGO, NOMBRE Y SLOGAN)
 							document.getElementById('titulo_emisora').innerHTML=l_var.nombre_emisora;

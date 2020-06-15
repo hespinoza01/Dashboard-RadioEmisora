@@ -1,5 +1,7 @@
 ﻿<?php
 
+require_once 'data.php';
+
 function listar_directorios_ruta($ruta){
     // abrir un directorio y listarlo recursivo
     if (is_dir($ruta)) {
@@ -86,56 +88,59 @@ function listar_directorios_descarga($ruta){
 }
 
 
-	function listar_carpetas(){
-		//phpinfo();
-		$ruta='../../audios/';
-		 echo "<span><strong>LISTA DE CARPETAS:</strong></span><br><br>";
-		 if (is_dir($ruta)) {
-		   if ($dh = opendir($ruta)) {
-			  	$i=0;
-				while (($file = readdir($dh)) !== false) {
-					 if (is_dir($ruta . $file) && $file!="." && $file!=".."){
-						$val64 = explode("_",$file);
-						if($val64[0]!="fonts" && $val64[0]!="js"&& $val64[0]!="AUDIOS"&& $val64[0]!="css"&& $val64[0]!="imagenes") {
-							$lista=showFiles('../../audios/'.$file.'/');
-							sort($lista);
-							$tmp_lista=[];
-							for($j=0;$j<count($lista);$j++){
-								$tmp_lista[$j]=basename($lista[$j])." <a href='../php/eliminar_audio.php?ruta=".$lista[$j]."'>ELIMINAR</a>";
-							}
-							$lista_string="";
-							$lista_string=implode("<br>", $tmp_lista);
-							echo (($i<11)?('0'.($i+1)):($i+1))."&nbsp;&nbsp;&nbsp;|<span><strong> CARPETA:</strong>$file<br>";
-							echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<strong> TRACKS:</strong> ".count($lista)."<div style='background-color: beige; border: solid red; width: 100%; height:115px; overflow: auto;'> $lista_string </div></span> ";
-							echo "_______________________________________________________________________<br>";
-							$i++;
-						}
-						
-					 }
-				}
-				
-			    closedir($dh);
-			    if ($i === 0){
-						echo "No hay carpetas creadas...<br>";
-						echo "_______________________________________________________________________<br>";	
-				 } 
-		   }
-		}
+function listar_carpetas(){
+	//phpinfo();
+    //require_once 'data.php';
+	$ruta = AUDIOS_RUTA;
 
-	}
-	
-	function showFiles($path){
-		$dir = opendir($path);
-		$files = array();
-		while ($current = readdir($dir)){
-			if( $current != "." && $current != "..") {
-					$files[] = $path.$current;
-				
+	 echo "<span><strong>LISTA DE CARPETAS:</strong></span><br><br>";
+
+	 if (is_dir($ruta)) {
+	   if ($dh = opendir($ruta)) {
+		  	$i=0;
+			while (($file = readdir($dh)) !== false) {
+				 if (is_dir($ruta . $file) && $file!="." && $file!=".."){
+					$val64 = explode("_",$file);
+					if($val64[0]!="fonts" && $val64[0]!="js"&& $val64[0]!="AUDIOS"&& $val64[0]!="css"&& $val64[0]!="imagenes") {
+						$lista=showFiles(AUDIOS_RUTA.$file.'/');
+						sort($lista);
+						$tmp_lista=[];
+						for($j=0;$j<count($lista);$j++){
+							$tmp_lista[$j]=basename($lista[$j])." <a href='../php/eliminar_audio.php?ruta=".$lista[$j]."'>ELIMINAR</a>";
+						}
+						$lista_string="";
+						$lista_string=implode("<br>", $tmp_lista);
+						echo (($i<11)?('0'.($i+1)):($i+1))."&nbsp;&nbsp;&nbsp;|<span><strong> CARPETA:</strong>$file<br>";
+						echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<strong> TRACKS:</strong> ".count($lista)."<div style='background-color: beige; border: solid red; width: 100%; height:115px; overflow: auto;'> $lista_string </div></span> ";
+						echo "_______________________________________________________________________<br>";
+						$i++;
+					}
+					
+				 }
 			}
-		}
-		closedir($dir);
-		return $files;
+			
+		    closedir($dh);
+		    if ($i === 0){
+					echo "No hay carpetas creadas...<br>";
+					echo "_______________________________________________________________________<br>";	
+			 } 
+	   }
 	}
+
+}
+	
+function showFiles($path){
+	$dir = opendir($path);
+	$files = array();
+	while ($current = readdir($dir)){
+		if( $current != "." && $current != "..") {
+				$files[] = $path.$current;
+			
+		}
+	}
+	closedir($dir);
+	return $files;
+}
 
 ?>
 
@@ -335,7 +340,7 @@ $(document).ready(function()
             <div class="dis_1">
                 <span>Nombre Carpeta de Audios</span>
                 <!-- <?php // echo listar_directorios_audios("./audios/", "listnameaudios"); ?> -->
-                <?php echo listar_directorios_audios("../../audios/", "listnamemusica"); ?>
+                <?php echo listar_directorios_audios(AUDIOS_RUTA, "listnamemusica"); ?>
                 <!-- <input type="text" name="namecarpaudio" id="namecarpaudio" class="fz-20" /> -->
                 <input type="text" name="nucarp" id="nucarp" class="formupload" />
             </div>
@@ -390,7 +395,7 @@ $(document).ready(function()
 
             <form action="../php/descarga.php" method="post">
                 <div class="stydownloader">
-                    <?php echo listar_directorios_descarga("../../audios/"); ?>
+                    <?php echo listar_directorios_descarga(AUDIOS_RUTA); ?>
                     <button type="submit" id="descargar" disabled>DOWNLOAD</button>
                 </div>
             </form>
@@ -402,7 +407,7 @@ $(document).ready(function()
             <div class="dis_3">
                 <form action="../php/deletecarp.php" method="post">
                     <span>Eliminar carpetas [ mp3 | ogg | ... ]</span> <br><br>
-                    <?php echo listar_directorios_ruta("../../audios/"); ?>
+                    <?php echo listar_directorios_ruta(AUDIOS_RUTA); ?>
                     <button type="submit">Eliminar</button>
                 </form>
             </div>

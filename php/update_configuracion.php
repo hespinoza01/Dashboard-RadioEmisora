@@ -1,9 +1,14 @@
 <?php
+
+require_once 'data.php';
+require_once 'data_file.php';
+
 	if (is_file("../json/generos.json")){ //or die('no')) file_put_contents("php://output", "=====>> ".'no existe'); //{
-		$datos_generos= file_get_contents("../json/generos.json");
-		$array_generos = json_decode($datos_generos, true);
+		$datos_generos= new Generos();
+		$array_generos = $datos_generos->Load()->Get();
+
 		foreach ($array_generos as $key => $genero) {
-				$lista=showFiles('../../audios/'.$genero["carpeta"].'/');
+				$lista=showFiles(AUDIOS_RUTA.$genero["carpeta"].'/');
 				if(count($lista)!=count($genero["lista"])){
 					$genero_nuevo = array (
 						'ID' 						=> $genero['ID'],
@@ -27,18 +32,18 @@
 				}
 				//sort($array_generos);
 		}
-		$fh = fopen("../json/generos.json", 'w');
-		fwrite($fh, json_encode($array_generos,JSON_UNESCAPED_UNICODE));
-		$code=fclose($fh);
-		$datos_generos= file_get_contents("../json/generos.json");
+		$datos_generos->Set($array_generos);
+		$code = $datos_generos->Save();
+		$datos_generos= read_file("../json/generos.json", false);
 		//echo $code;
 	}
 
 	if (is_file("../json/comerciales.json")) {
-		$datos_comerciales = file_get_contents("../json/comerciales.json");
-		$array_comerciales = json_decode($datos_comerciales, true);
+		$datos_comerciales = new Comerciales();
+		$array_comerciales = $datos_comerciales->Load()->Get();
+
 		foreach ($array_comerciales as $key => $comercial) {
-				$lista=showFiles('../../audios/'.$comercial["carpeta"].'/');
+				$lista=showFiles(AUDIOS_RUTA.$comercial["carpeta"].'/');
 				if(count($lista)!=count($comercial["lista"])){
 					
 					$comercial_nuevo = array (
@@ -61,10 +66,9 @@
 				}
 				//sort($array_comerciales);
 		}
-		$fh = fopen("../json/comerciales.json", 'w');
-		fwrite($fh, json_encode($array_comerciales,JSON_UNESCAPED_UNICODE));
-		$code=fclose($fh);
-		$datos_comerciales = file_get_contents("../json/comerciales.json");
+		$datos_comerciales->Set($array_comerciales);
+		$code =$datos_comerciales->Save();
+		$datos_comerciales = read_file("../json/comerciales.json", false);
 		//echo $code;
 	}
 	

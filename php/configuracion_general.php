@@ -1,4 +1,5 @@
 ﻿<?php
+require_once 'data.php';
 
 if(isset($_REQUEST['opcion'])){
 	if($_REQUEST['opcion']==1){
@@ -9,26 +10,28 @@ if(isset($_REQUEST['opcion'])){
 		}
 				
 		if (is_file("../json/webaudio.json")) {
-			$datos_webaudio= file_get_contents("../json/webaudio.json");
-			$array_webaudio = json_decode($datos_webaudio, true);
-			$carpeta=$array_webaudio['carpeta_link'];
+			$datos_webaudio = new Webaudio();
+			$carpeta=$datos_webaudio->Load()->Get()['carpeta_link'];
 		}
+
 		$ruta_antes=$ruta_prov.$carpeta.'/';
+
 		if (is_file("../json/link_es.json")) {
-			$datos_enlace= file_get_contents("../json/link_es.json");
-			$array_enlace = json_decode($datos_enlace, true);
+			$datos_enlace= new Link_es();
+			$array_enlace = $datos_enlace->Load()->Get();
+
 			foreach ($array_enlace as $key => $enlace) {
 				$fecha_final=$enlace['fecha_final'];
 				$segundoTimes = strtotime(date('Y-m-d G:i:s')) - strtotime($fecha_final);
+
 				if($segundoTimes>0){
 					unlink($ruta_antes.$enlace['enlace']);
 					unset($array_enlace[$key]);
-					$array_enlace =array_values($array_enlace);
-					$fh = fopen("../json/link_es.json", 'w');
-					fwrite($fh, json_encode($array_enlace,JSON_UNESCAPED_UNICODE));
-					$code=fclose($fh);
 				}
-			}	
+			}
+
+            $datos_enlace->Set($array_enlace);
+            $datos_enlace->Save();	
 		}
 	}
 }
@@ -37,8 +40,9 @@ if(isset($_REQUEST['opcion'])){
 function listar_variables(){
 
 	if (is_file("../json/general.json")) {	
-		$datos_general= file_get_contents("../json/general.json");
-		$array_general = json_decode($datos_general, true);
+		$datos_general= new General();
+		$array_general = $datos_general->Load()->Get();
+
 		if(count($array_general)==0){
 			echo "No hay variables registradas...<br>";
 			echo "_______________________________________________________________________<br>";			
@@ -106,8 +110,8 @@ function listar_variables(){
 	}
 
 	if (is_file("../json/webaudio.json")) {	
-		$datos_general= file_get_contents("../json/webaudio.json");
-		$array_general = json_decode($datos_general, true);
+		$datos_general= new Webaudio();
+		$array_general = $datos_general->Load()->Get();
 	
 			echo "
 				<script>

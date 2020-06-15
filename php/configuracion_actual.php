@@ -1,108 +1,122 @@
 ﻿<?php
-	function listar_variables(){
-					
-			echo "<span><strong>NOTAS:</strong></span><br>";
-			echo "<span>RANDOM GENEROS [0- SIN RANDOM, 1- FISHER YATES, 2- SATTOLO, 3- PERMUTACION]</span><br>";
-			echo "<span>SEPARAR GENEROS [1.- LIBRE , 2.- SEPARAR (APLICA A 5 O MAS GENEROS CON RANDOM 1 Y 2)]</span><br>";
-			echo "<span>EFECTOS PIZZICATO [0- SIN EFECTO , 1- GENEROS, 2- COMERCIALES, 3- AMBOS]</span><br>";
-			echo "_______________________________________________________________________<br>";
-			echo "<span><strong>VARIABLES GENERALES:</strong></span><br><br>";
-			
-		if (is_file("../json/general.json")) {
-			$datos_general= file_get_contents("../json/general.json");
-			$array_general = json_decode($datos_general, true);
 
-			if(count($array_general)==0){
-				echo "No hay variables registradas...<br>";
-				echo "_______________________________________________________________________<br>";			
-			}
-			else{
-				echo "<span>RANDOM GENEROS: $array_general[RANDOM]</span><br>";
-				echo "<span>SEPARAR GENERO: $array_general[SEPARAR_GENERO]</span><br>";
-				echo "<span>EFECTOS PIZZICATO: $array_general[PIZZICATO]</span><br>";
-				echo "<span>TIEMPO DE INACTIVIDAD: $array_general[tiempo_inactividad] MINUTOS</span><br>";
-				echo "<span>SINCRONIZAR: $array_general[version]</span><br>";
-				echo "<span>CANTIDAD DE RONDAS: $array_general[nronda]</span><br>";
-				echo "_______________________________________________________________________<br>";
-			}
-		}
-		else{
-			echo "No hay variables registradas...<br>";
-			echo "_______________________________________________________________________<br>";
-		}
+require_once 'data.php';
 
-	} 
-
-	function listar_comerciales(){
-		echo "<strong>NOTAS:</strong> Modo de Revolver las Listas<br>1.- Selecciona 1 tracks con fisher yates, lo coloca en la primera posicion y los demas se revuelven con sattolo.
-			<br>2.- Selecciona 1 tracks con fisher yates, se queda en la misma posicion y los demas se revuelven con sattolo.
-			<br>3.- Selecciona 1 tracks con fisher yates, lo coloca en la ultima posicion y los demas se revuelven con sattolo.
-			<br>4.- Selecciona 1 algoritmo de revolver (fisher yates o sattolo) y revuelve la lista.<br>";
-		echo "_______________________________________________________________________<br>";
-		echo "<span><strong>LISTA DE COMERCIALES:</strong></span><br><br>";
-		if (is_file("../json/comerciales.json")) {
-			$datos_comerciales = file_get_contents("../json/comerciales.json");
-			$array_comerciales = json_decode($datos_comerciales, true);
-			//$array_comercial_listar = array_values($array_comerciales);
-			
-			sort($array_comerciales);
-			if(count($array_comerciales)==0){
-				echo "No hay comerciales registrados...<br>";
-				echo "_______________________________________________________________________<br>";			
-			}
-			for($i=0;$i<count($array_comerciales);$i++){
-				echo (($i<11)?('0'.($i+1)):($i+1))."&nbsp;&nbsp;&nbsp;|<span><strong>ID:</strong> ".$array_comerciales[$i]['ID']."  <strong>Tipo:</strong> ".(($array_comerciales[$i]['tipo']==1)?'1-GENERAL':(($array_comerciales[$i]['tipo']==2)?'2-GENEROS':'3.-ENTRADAS'));
-				echo " <strong>Descripcion:</strong> ".$array_comerciales[$i]['descripcion']." <strong>Tracks:</strong> ".$array_comerciales[$i]['Ntracks'];
-				echo " <strong>Revolver:</strong> ".$array_comerciales[$i]['modo_revolver']."<a name='eliminar-comercial' href='../php/eliminar_comercial.php?ID=".$array_comerciales[$i]['ID']."&pagina=actual'> ELIMINAR </a><br>";
-				echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<strong>Carpeta:</strong> ../".$array_comerciales[$i]['carpeta']."/ </span><br>";
-				$array_lista=[];
-				for($j=0;$j<count($array_comerciales[$i]['lista']);$j++){
-					$array_lista[$j]=basename($array_comerciales[$i]['lista'][$j]);
-				}
-				$lista="";
-				$lista=implode("<br>",$array_lista);
-				echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<strong>Lista: ".count($array_comerciales[$i]['lista'])." Audios</strong><div style='background-color: yellow; border: solid green; width: 100%; height:115px; overflow: auto;'> <span> $lista </span> </div>";
-				echo "_______________________________________________________________________<br>";			
-			}
-		}
-		else{
-			echo "No hay comerciales registrados...<br>";
-			echo "_______________________________________________________________________<br>";
-		}
-	}
+function listar_variables(){
+				
+	echo "<span><strong>NOTAS:</strong></span><br>";
+	echo "<span>RANDOM GENEROS [0- SIN RANDOM, 1- FISHER YATES, 2- SATTOLO, 3- PERMUTACION]</span><br>";
+	echo "<span>SEPARAR GENEROS [1.- LIBRE , 2.- SEPARAR (APLICA A 5 O MAS GENEROS CON RANDOM 1 Y 2)]</span><br>";
+	echo "<span>EFECTOS PIZZICATO [0- SIN EFECTO , 1- GENEROS, 2- COMERCIALES, 3- AMBOS]</span><br>";
+	echo "_______________________________________________________________________<br>";
+	echo "<span><strong>VARIABLES GENERALES:</strong></span><br><br>";
 	
-	function listar_generos(){
-		echo "<span><strong>LISTA DE GENEROS:</strong></span><br><br>";
-		if (is_file("../json/generos.json")) {
-			$datos_generos= file_get_contents("../json/generos.json");
-			$array_generos = json_decode($datos_generos, true);
-			sort($array_generos);
-			if(count($array_generos)==0){
-				echo "No hay generos registrados...<br>";
-				echo "_______________________________________________________________________<br>";			
-			}
-			for($i=0;$i<count($array_generos);$i++){
-				echo (($i<11)?('0'.($i+1)):($i+1))."&nbsp;&nbsp;&nbsp;|<span><strong>ID:</strong> ".$array_generos[$i]['ID'];
-				echo " <strong>Nombre:</strong> ".$array_generos[$i]['Name']." <strong>Tracks:</strong> ".$array_generos[$i]['Ntracks'];
-				echo " <strong>Revolver:</strong> ".$array_generos[$i]['modo_revolver']." <strong>ID Comercial: </strong>".(($array_generos[$i]['ID_comerciales_generos']!='')?$array_generos[$i]['ID_comerciales_generos']:'No asignado')."<a name='eliminar-genero' href='../php/eliminar_genero.php?ID=".$array_generos[$i]['ID']."&pagina=actual'> ELIMINAR </a><br>";
-				echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<strong>Carpeta:</strong> ../".$array_generos[$i]['carpeta']."/ <br>";
-				$ausente=implode(',&nbsp;',$array_generos[$i]['AUSENTE_PRESENTE']);
-				$array_lista=[];
-				for($j=0;$j<count($array_generos[$i]['lista']);$j++){
-					$array_lista[$j]=basename($array_generos[$i]['lista'][$j]);
-				}
-				$lista="";
-				$lista=implode('<br>',$array_lista);
-				echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<strong>Ausente Presente:</strong> [$ausente] </span><br> ";
-				echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<strong>Lista: ".count($array_generos[$i]['lista'])." Audios</strong><div style='position:relative;background-color: pink; border: solid blue; width: 100%; height:115px; overflow: auto;'> $lista </div></span> ";
-				echo "_______________________________________________________________________<br>";			
-			}
+	$datos_general= new General();
+	$array_general = $datos_general->Load()->Get();
+
+
+    if(!array_key_exists('success', read_file($datos_general->Path()))){
+    	if(count($array_general)==0){
+    		echo "No hay variables registradas...<br>";
+    		echo "_______________________________________________________________________<br>";			
+    	}else{
+    		echo "<span>RANDOM GENEROS: $array_general[RANDOM]</span><br>";
+    		echo "<span>SEPARAR GENERO: $array_general[SEPARAR_GENERO]</span><br>";
+    		echo "<span>EFECTOS PIZZICATO: $array_general[PIZZICATO]</span><br>";
+    		echo "<span>TIEMPO DE INACTIVIDAD: $array_general[tiempo_inactividad] MINUTOS</span><br>";
+    		echo "<span>SINCRONIZAR: $array_general[version]</span><br>";
+    		echo "<span>CANTIDAD DE RONDAS: $array_general[nronda]</span><br>";
+    		echo "_______________________________________________________________________<br>";
+    	}
+    }else{
+		echo "No hay variables registradas...<br>";
+		echo "_______________________________________________________________________<br>";
+	}
+
+} 
+
+function listar_comerciales(){
+	echo "<strong>NOTAS:</strong> Modo de Revolver las Listas<br>1.- Selecciona 1 tracks con fisher yates, lo coloca en la primera posicion y los demas se revuelven con sattolo.
+		<br>2.- Selecciona 1 tracks con fisher yates, se queda en la misma posicion y los demas se revuelven con sattolo.
+		<br>3.- Selecciona 1 tracks con fisher yates, lo coloca en la ultima posicion y los demas se revuelven con sattolo.
+		<br>4.- Selecciona 1 algoritmo de revolver (fisher yates o sattolo) y revuelve la lista.<br>";
+	echo "_______________________________________________________________________<br>";
+	echo "<span><strong>LISTA DE COMERCIALES:</strong></span><br><br>";
+	if (is_file("../json/comerciales.json")) {
+		$datos_comerciales = new Comerciales();
+		$array_comerciales = $datos_comerciales->Load()->Get();
+		//$array_comercial_listar = array_values($array_comerciales);
+		
+		sort($array_comerciales);
+		if(count($array_comerciales)==0){
+			echo "No hay comerciales registrados...<br>";
+			echo "_______________________________________________________________________<br>";			
 		}
-		else{
-			echo "No hay generos registrados...<br>";
-			echo "_______________________________________________________________________<br>";	
+		for($i=0;$i<count($array_comerciales);$i++){
+			echo (($i<11)?('0'.($i+1)):($i+1))."&nbsp;&nbsp;&nbsp;|<span><strong>ID:</strong> ".$array_comerciales[$i]['ID']."  <strong>Tipo:</strong> ".(($array_comerciales[$i]['tipo']==1)?'1-GENERAL':(($array_comerciales[$i]['tipo']==2)?'2-GENEROS':'3.-ENTRADAS'));
+			echo " <strong>Descripcion:</strong> ".$array_comerciales[$i]['descripcion']." <strong>Tracks:</strong> ".$array_comerciales[$i]['Ntracks'];
+			echo " <strong>Revolver:</strong> ".$array_comerciales[$i]['modo_revolver']."<a name='eliminar-comercial' href='../php/eliminar_comercial.php?ID=".$array_comerciales[$i]['ID']."&pagina=actual'> ELIMINAR </a><br>";
+			echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<strong>Carpeta:</strong> ../".$array_comerciales[$i]['carpeta']."/ </span><br>";
+			$array_lista=[];
+			for($j=0;$j<count($array_comerciales[$i]['lista']);$j++){
+				$array_lista[$j]=basename($array_comerciales[$i]['lista'][$j]);
+			}
+			$lista="";
+			$lista=implode("<br>",$array_lista);
+			echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<strong>Lista: ".count($array_comerciales[$i]['lista'])." Audios</strong><div style='background-color: yellow; border: solid green; width: 100%; height:115px; overflow: auto;'> <span> $lista </span> </div>";
+			echo "_______________________________________________________________________<br>";			
 		}
 	}
+	else{
+		echo "No hay comerciales registrados...<br>";
+		echo "_______________________________________________________________________<br>";
+	}
+}
+	
+function listar_generos(){
+	echo "<span><strong>LISTA DE GENEROS:</strong></span><br><br>";
+	if (is_file("../json/generos.json")) {
+		$datos_generos= new Generos();
+		$array_generos = $datos_generos->Load()->Get();
+
+		sort($array_generos);
+
+		if(count($array_generos)==0){
+			echo "No hay generos registrados...<br>";
+			echo "_______________________________________________________________________<br>";			
+		}
+
+		for($i=0;$i<count($array_generos);$i++){
+			echo (($i<11)?('0'.($i+1)):($i+1))."&nbsp;&nbsp;&nbsp;|<span><strong>ID:</strong> ".$array_generos[$i]['ID'];
+
+			echo " <strong>Nombre:</strong> ".$array_generos[$i]['Name']." <strong>Tracks:</strong> ".$array_generos[$i]['Ntracks'];
+
+			echo " <strong>Revolver:</strong> ".$array_generos[$i]['modo_revolver']." <strong>ID Comercial: </strong>".(($array_generos[$i]['ID_comerciales_generos']!='')?$array_generos[$i]['ID_comerciales_generos']:'No asignado')."<a name='eliminar-genero' href='../php/eliminar_genero.php?ID=".$array_generos[$i]['ID']."&pagina=actual'> ELIMINAR </a><br>";
+
+			echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<strong>Carpeta:</strong> ../".$array_generos[$i]['carpeta']."/ <br>";
+
+			$ausente=implode(',&nbsp;',$array_generos[$i]['AUSENTE_PRESENTE']);
+			$array_lista=[];
+
+			for($j=0;$j<count($array_generos[$i]['lista']);$j++){
+				$array_lista[$j]=basename($array_generos[$i]['lista'][$j]);
+			}
+
+			$lista="";
+			$lista=implode('<br>',$array_lista);
+
+			echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<strong>Ausente Presente:</strong> [$ausente] </span><br> ";
+
+			echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<strong>Lista: ".count($array_generos[$i]['lista'])." Audios</strong><div style='position:relative;background-color: pink; border: solid blue; width: 100%; height:115px; overflow: auto;'> $lista </div></span> ";
+            
+			echo "_______________________________________________________________________<br>";			
+		}
+	}
+	else{
+		echo "No hay generos registrados...<br>";
+		echo "_______________________________________________________________________<br>";	
+	}
+}
 ?>
 
 <!DOCTYPE html>

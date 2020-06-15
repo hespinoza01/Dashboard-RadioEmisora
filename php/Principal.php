@@ -1,34 +1,12 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-
-<?php
-	session_start();
-//	echo $_SESSION['usuario'];
-	if (!isset($_SESSION['usuario']) && !isset($_SESSION['clave'])){
-		echo "<img style='margin-left:35%; margin-top:15%;' src='../imagenes/login.png'><br><h1 style='margin-left:35%'>No está autorizado a entrar.</h1>";
-		die("<script>setTimeout(function(){window.location='../configuracion.html';}, 2000);</script>");
-	} 
-	else{
-		if (is_file("../json/general.json")) {	
-			$datos_general= file_get_contents("../json/general.json");
-			$array_general = json_decode($datos_general, true);
-		}
-		if($_SESSION['usuario']!=$array_general['usuario'] || $_SESSION['clave']!=$array_general['clave']){
-			echo "<img style='margin-left:35%; margin-top:15%;' src='../imagenes/login.png'><br><h1 style='margin-left:35%'>Usuario o Clave Incorrecta...</h1>";
-			die("<script>setTimeout(function(){window.location='../configuracion.html';}, 2000);</script>");
-		}			
-	}
-?>
-
-<html>
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Sistema Principal</title>
-
-    
-
-    <link rel="stylesheet" href="../css/menu.css" type="text/css" >
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>Sistema Principal</title>
+	<link rel="stylesheet" href="../css/menu.css" type="text/css" >
 	<link rel="stylesheet" href="../css/ventana.css" type="text/css" >
 	<link rel="icon" type="image/ico" href="../imagenes/ICO-2.png" sizes="230x230">
+
 	<style type="text/css">
 			body {
 				overflow-x:hidden;
@@ -36,12 +14,15 @@
 			}
 			
 	</style>
+
 	<script src="../js/jquery.min.js"></script>
-	 <script src="../js/generar_listas1.js"></script>
-	<script language="javascript">
+	<script src="../js/generar_listas1.js"></script>
+
+	<script>
 		function cargarFrame(id,src) {
 			
 			var frame=['formCarpeta','formGeneral','formComerciales','formGeneros','formAusente','formPizzicato','formActual'];
+
 			for(var i=0;i<7;i++){
 				var control = document.getElementById(frame[i]);
 				if(control!=null){
@@ -49,6 +30,7 @@
 					padre.removeChild(control);							
 				}
 			}
+
 			var iframe = document.createElement("iframe");
 			iframe.id = id;
 			iframe.src = src;
@@ -66,38 +48,25 @@
 		
 			// SINCRONIZAR CON DATOS GUARDADOS EN JSON
 		function procesar_listas(){
-			var xhr = new XMLHttpRequest();
-			xhr.open('GET', "../php/obtener_variables.php", true);
-			xhr.responseType = 'text';
-			xhr.onload = function () {
-				if (xhr.readyState === xhr.DONE) {
-					if (xhr.status === 200) {
-						var responjson= JSON.parse(this.responseText);
-						console.log(new Date()); // FECHA Y VERSION DEL PROGRAMA
-						cargar_variables(responjson);
-						//alert('Epaleeeeeeeeeeeeeeeeeee');
-						update_configuracion();
-						inicializar_variables();
-						principio();
-		
+			fetch("../php/obtener_variables.php")
+				.then(res => {
+					if(res.status = 200){
+						return res.text();
+					}else{
+						console.log("Error on 'obtener_variables.php'");
 					}
-				}
-			};
-			xhr.send(null);
+				}).then(data => {
+					var responjson= JSON.parse(data);
+					console.log(new Date()); // FECHA Y VERSION DEL PROGRAMA
+					cargar_variables(responjson);
+					//alert('Epaleeeeeeeeeeeeeeeeeee');
+					update_configuracion();
+					inicializar_variables();
+					principio();
+				}).catch(error => console.log(error));
 		}
-	/*	
-	function inicializar_lista(){
-			//alert('epale');
-			var xhr = new XMLHttpRequest();
-			xhr.open('GET', "inicializar_lista.php", true);
-			xhr.responseType = 'text';
-			xhr.send(null);
-		}*/
-
 	</script>
-	
-	
-</head>    
+</head>
 <body onload="cargarFrame('formActual','configuracion_actual.php');">
 
 <!-- 
@@ -177,6 +146,3 @@ Menú Principal del Programa
 <img style='position: absolute; margin-top:430px; margin-left:57px;' title='Refrescar Emisora' src="../imagenes/REFRESCAR.gif" width="90" height="90" onclick="procesar_listas();"/>
 </body>
 </html>
-
-
-

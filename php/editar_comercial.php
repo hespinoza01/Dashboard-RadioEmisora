@@ -1,10 +1,13 @@
 ﻿<?php
+
+require_once 'data.php';
+
 function listar_directorios_ruta($ruta){
     // abrir un directorio y listarlo recursivo
     if (is_dir($ruta)) {
         //echo '<select name="listcarp" id="listcarp" class="listcarp">'; 
         echo '<select required name="listcarp" id="listcarp" class="formupload">';
-        echo '<option value="0" disabled selected>-Selecciona una carpeta-</option>';
+        echo '<option value disabled selected>-Selecciona una carpeta-</option>';
        if ($dh = opendir($ruta)) {
         
           while (($file = readdir($dh)) !== false) {
@@ -28,8 +31,9 @@ function listar_directorios_ruta($ruta){
 }
 
 	function mostrar_comercial(){
-		$datos_comerciales = file_get_contents("../json/comerciales.json");
-		$array_comerciales = json_decode($datos_comerciales, true);
+		$datos_comerciales = new Comerciales();
+		$array_comerciales = $datos_comerciales->Load()->Get();
+        
 		foreach ($array_comerciales as $key => $comercial) {
 			if ( $comercial['ID']==$_REQUEST['ID']) {
 				echo " 
@@ -39,7 +43,7 @@ function listar_directorios_ruta($ruta){
 					    var combo = document.getElementById('tipo_comercial');
 					    var cantidad = combo.length;
 					    for (let i = 0; i < cantidad; i++) {
-							  if (combo[i].value == $comercial[tipo]) {
+							  if (combo[i].getAttribute('value') == $comercial[tipo]) {
 								 combo[i].selected = true;							// SELECCIONAR TIPO COMERCIAL
 							  }   
 					    }
@@ -49,7 +53,7 @@ function listar_directorios_ruta($ruta){
 						var combo = document.getElementById('listcarp');
 					    var cantidad = combo.length;
 					    for (let i = 0; i < cantidad; i++) {
-							  if (combo[i].value == '$comercial[carpeta]') {
+							  if (combo[i].getAttribute('value') == '$comercial[carpeta]') {
 								 combo[i].selected = true;							// SELECCIONAR CARPETA COMERCIAL
 							  }   
 					    }
@@ -57,7 +61,7 @@ function listar_directorios_ruta($ruta){
 						var combo = document.getElementById('revolver_comercial');
 					    var cantidad = combo.length;
 					    for (let i = 0; i < cantidad; i++) {
-							  if (combo[i].value == '$comercial[modo_revolver]') {
+							  if (combo[i].getAttribute('value') == '$comercial[modo_revolver]') {
 								 combo[i].selected = true;							// SELECCIONAR REVOLVER COMERCIAL
 							  }   
 					    }
@@ -73,7 +77,7 @@ function listar_directorios_ruta($ruta){
 									var combo = document.getElementById('p_eliminar');
 									var cantidad = combo.length;
 									for (let i = 0; i < cantidad; i++) {
-										  if (combo[i].value == '$comercial[p_eliminar]') {
+										  if (combo[i].getAttribute('value') == '$comercial[p_eliminar]') {
 											 combo[i].selected = true;							// PORCENTAJE A ELIMINAR
 										  }   
 									}
@@ -292,7 +296,7 @@ function listar_directorios_ruta($ruta){
 			<br>
 			<span>Tipo Comercial:</span>
 			<select required name="tipo_comercial" id="tipo_comercial" class="formupload">
-                <option value="-1" disabled selected>Tipo Comercial</option>
+                <option value disabled selected>Tipo Comercial</option>
               	<option value="1">1- General</option>
                 <option value="2">2- De Géneros</option>
 				<option value="3">3- De Entradas</option>
@@ -318,7 +322,7 @@ function listar_directorios_ruta($ruta){
 			<br>
 			<span>Modo de Revolver:</span>
 			<select required name="revolver_comercial" id="revolver_comercial" class="formupload" onchange="verificar_modo(this.value);">
-                <option value="0" disabled selected>Modo Revolver</option>
+                <option value disabled selected>Modo Revolver</option>
               	<option value="1">1</option>
                 <option value="2">2</option>
 				<option value="3">3</option>

@@ -1,10 +1,14 @@
 ﻿<?php
+
+require_once 'data.php';
+
 function listar_directorios_ruta($ruta){
     // abrir un directorio y listarlo recursivo
     if (is_dir($ruta)) {
         //echo '<select name="listcarp" id="listcarp" class="listcarp">'; 
         echo '<select required name="listcarp" id="listcarp" class="formupload">';
-        echo '<option value="0" disabled selected>-Selecciona una carpeta-</option>';
+        echo '<option value disabled selected>-Selecciona una carpeta-</option>';
+
        if ($dh = opendir($ruta)) {
         
           while (($file = readdir($dh)) !== false) {
@@ -31,10 +35,13 @@ function listar_directorios_ruta($ruta){
 
 function listar_ID_Comerciales(){
    if (is_file("../json/comerciales.json")) {
-	$tmp_comerciales=json_decode(file_get_contents("../json/comerciales.json"),true);    
+	$comerciales = new Comerciales();
+    $tmp_comerciales = $comerciales->Load()->Get();
+
 	echo '<select required name="comercial_gen" id="comercial_gen" class="formupload">';
       echo '<option value="" disabled selected>-Selecciona un ID-</option>';
-	echo "<option value=''>Comercial General</option>";		
+	echo "<option value=''>Comercial General</option>";	
+
 	foreach ($tmp_comerciales as $key => $comercial) {
 		if($comercial['tipo']==2){
 			echo "<option value=$comercial[ID]>$comercial[ID]-$comercial[descripcion]</option>";		
@@ -46,28 +53,41 @@ function listar_ID_Comerciales(){
 
 	function listar_generos(){
 		echo "<span><strong>LISTA DE GENEROS:</strong></span><br><br>";
+
 		if (is_file("../json/generos.json")) {
-			$datos_generos= file_get_contents("../json/generos.json");
-			$array_generos = json_decode($datos_generos, true);
+			$datos_generos= new Generos();
+			$array_generos = $datos_generos->Load()->Get();
+
 			if(count($array_generos)==0){
 				echo "No hay generos registrados...<br>";
 				echo "_______________________________________________________________________<br>";			
 			}
+
 			sort($array_generos);
+
 			for($i=0;$i<count($array_generos);$i++){
 				echo (($i<11)?('0'.($i+1)):($i+1))."&nbsp;&nbsp;&nbsp;|<span><strong>ID:</strong> ".$array_generos[$i]['ID'];
+
 				echo " <strong>Nombre:</strong> ".$array_generos[$i]['Name']." <strong>Tracks:</strong> ".$array_generos[$i]['Ntracks'];
+
 				echo " <strong>Revolver:</strong> ".$array_generos[$i]['modo_revolver']." <strong>ID Comercial: </strong>".(($array_generos[$i]['ID_comerciales_generos']!='')?$array_generos[$i]['ID_comerciales_generos']:'No asignado')."<a name='eliminar-genero' href='../php/eliminar_genero.php?ID=".$array_generos[$i]['ID']."&pagina=actual'> ELIMINAR </a>";
+
 				echo " <a name='editar-genero' href='../php/editar_genero.php?ID=".$array_generos[$i]['ID']."&pagina=generos'> EDITAR </a><br>";
+
 				echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<strong>Carpeta:</strong> ../".$array_generos[$i]['carpeta']."/ <br>";
+
 				$ausente=implode(',&nbsp;',$array_generos[$i]['AUSENTE_PRESENTE']);
 				$array_lista=[];
+
 				for($j=0;$j<count($array_generos[$i]['lista']);$j++){
 					$array_lista[$j]=basename($array_generos[$i]['lista'][$j]);
 				}
+
 				$lista="";
 				$lista=implode('<br>',$array_lista);
+
 				echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<strong>Ausente Presente:</strong> [$ausente] </span><br> ";
+                
 				echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<strong>Lista: ".count($array_generos[$i]['lista'])." Audios</strong><div style='position:relative;background-color: pink; border: solid blue; width: 100%; height:115px; overflow: auto;'> $lista </div></span> ";
 				echo "_______________________________________________________________________<br>";			
 			}
@@ -299,7 +319,7 @@ function listar_ID_Comerciales(){
 				<span>Modo de Revolver:</span>
 				<br>
 				<select required name="revolver_lista" id="revolver_lista" class="formupload" onchange="verificar_modo(this.value);">
-					<option value="-1" disabled selected>Modo Revolver</option>
+					<option value disabled selected>Modo Revolver</option>
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>

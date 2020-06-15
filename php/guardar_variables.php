@@ -1,31 +1,34 @@
 <?php
 	// PROCESO DE GUARDADO
+require_once 'data.php';
+	
+$ruta="../json/comerciales.json";
+if (is_file($ruta)) {
+	$array_comerciales = json_decode($_POST['comerciales'], true);
+	$datos_comerciales = new Comerciales();
 
-	
-	$ruta="../json/comerciales.json";
-	if (is_file($ruta)) {
-		$array_comerciales = json_decode($_POST['comerciales'], true);
-		$fh = fopen($ruta, 'w');
-		fwrite($fh, json_encode($array_comerciales,JSON_UNESCAPED_UNICODE));
-		$code=fclose($fh); 
-	}
-	
-	$ruta="../json/general.json";
-	if (is_file($ruta)) {
-		$array_general = json_decode($_POST['variables'], true);
-		$fh = fopen($ruta, 'w');
-		fwrite($fh, json_encode($array_general,JSON_UNESCAPED_UNICODE));
-		$code=fclose($fh); 
-	}
-	
-	$ruta="../json/generos_A_P.json";
-	$generos_A_P= array(
-		'current_lista' =>	 $_POST['current_lista'],
-		'generos_A_P' 	=> json_decode($_POST['generos_A_P'], true)
-	);
-	$fh = fopen($ruta, 'w');
-	fwrite($fh, json_encode($generos_A_P,JSON_UNESCAPED_UNICODE));
-	$code=fclose($fh);
+	$datos_comerciales->Set($array_comerciales);
+	$code = $datos_comerciales->Save(); 
+}
+
+$ruta="../json/general.json";
+if (is_file($ruta)) {
+	$array_general = json_decode($_POST['variables'], true);
+	$datos_general = new General();
+
+	$datos_general->Set($array_general);
+	$code = $datos_general->Save(); 
+}
+
+$ruta="../json/generos_A_P.json";
+$generos_A_P= array(
+	'current_lista' =>	 $_POST['current_lista'],
+	'generos_A_P' 	=> json_decode($_POST['generos_A_P'], true)
+);
+
+$datos_generos_A_P = new GenerosAP();
+$datos_generos_A_P->Set($generos_A_P);
+$code = $datos_generos_A_P->Save();
 	
 /*
 	$ruta="../json/lista.json";

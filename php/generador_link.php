@@ -1,181 +1,186 @@
 <?php
-	
-	if(isset($_REQUEST['opcion'])){
-		if($_REQUEST['opcion']==1 || $_REQUEST['opcion']==3 ){ // crea enlace con emisora
-			
-			$fullpath = substr($_REQUEST['ruta'], 0, -4);
-			$inicio=$fullpath."php/contenido_iframe.php";//"index.html";
-			$ruta_prov='../'; 
-			//die("inicio: ".$inicio." - ".$_REQUEST['ruta']." - ".$_SERVER['DOCUMENT_ROOT']);
-			/*for($i=0;$i<count($prueba)-4;$i++){
-					$ruta_prov=$ruta_prov."../";
-			}*/
-			
-			if (is_file("../json/webaudio.json")) {
-				$datos_webaudio= file_get_contents("../json/webaudio.json");
-				$array_webaudio = json_decode($datos_webaudio, true);
-				$duracion=$array_webaudio['tiempo_duracion'];
-				$modo_duracion=$array_webaudio['modo_duracion'];
-				$iframe_ancho=$array_webaudio['iframe_ancho'];
-				$iframe_largo=$array_webaudio['iframe_largo'];
-				$carpeta=$array_webaudio['carpeta_link'];
-			}
+
+require_once 'data.php';
+require_once 'data_file.php';
+
+if(isset($_REQUEST['opcion'])){
+	if($_REQUEST['opcion']==1 || $_REQUEST['opcion']==3 ){ // crea enlace con emisora
 		
-			$carpeta=str_replace(' ','_',$carpeta);
-			//$ruta=$_REQUEST['ruta_hosting'].$carpeta.'/'.$_REQUEST['enlace'];
-			$ruta=$fullpath.$carpeta.'/'.$_REQUEST['enlace'];
-			$directorio=$ruta_prov.$carpeta.'/';	
-			//die("carpeta: ".$carpeta." - ".$_REQUEST['enlace']." - ".$ruta);	
-			//Validamos si la ruta de destino existe, en caso de no existir la creamos
-			if(!file_exists($directorio)){
-				mkdir($directorio, 0777) or die($directorio." - ".$ruta.": No se puede crear el directorio de extracci&oacute;n");	
-			}
-
-			$ruta_absoluta=$directorio.$_REQUEST['enlace'];
-			
-
-			$fecha=date('Y-m-d G:i:s');
-			if($modo_duracion=='HOURS'){
-				$nuevafecha = strtotime ( '+'.$duracion.' hour' , strtotime ( $fecha ) );
-			}
-			if($modo_duracion=='MINUTES'){
-				$nuevafecha = strtotime ( '+'.$duracion.' minute' , strtotime ( $fecha ) ) ;
-			}
-			if($modo_duracion=='YEARS'){
-				$nuevafecha = strtotime ( '+'.intval ($duracion)*(8760).' hour' , strtotime ( $fecha ) );
-			}
-
-			if (is_file("../json/webaudio.json")) {
-                $webaudio = file_get_contents("../json/webaudio.json");
-                $webaudio = json_decode($webaudio, true);
-                $modo_duracion = $webaudio['modo_duracion'];
-            }
-
-            $modo = array(
-                "YEARS" => "AÑOS",
-                "MINUTES" => "MINUTOS",
-                "HOURS" => "HORAS"
-            );		
-
-			// guarda enlance en link_es.json
-			$enlace_new = array (
-					'enlace' 						=> $_REQUEST['enlace'],
-					'fecha_generada' 				=> $fecha,
-					'fecha_final'					=> 	date ( 'Y-m-j G:i:s' , $nuevafecha ),
-					'modo_duracion'					=> $modo[$modo_duracion]		
-			);
-			
-			if (is_file("../json/link_es.json")) {
-				$datos_enlace= file_get_contents("../json/link_es.json");
-				$array_enlace = json_decode($datos_enlace, true);
-				array_push($array_enlace, $enlace_new);
-			}
-			else{
-				$array_enlace = array();
-				array_push($array_enlace, $enlace_new);
-			}
-			$fh = fopen("../json/link_es.json", 'w');
-			fwrite($fh, json_encode($array_enlace,JSON_UNESCAPED_UNICODE));
-			$code=fclose($fh);
-			
-			
-			// crea el enlance en el inicio del hosting
-			$fh = fopen($ruta_absoluta, 'w');
-			$ruta_prueba=substr($_REQUEST['ruta'],0,-5 );
-			if($_REQUEST['opcion']==1 || $_REQUEST['opcion']==3 ){
-				$cadena="
-							<html>
-								<meta name='viewport' content='width=device-width, initial-scale=0.9'>
-								<meta http-equiv='X-UA-Compatible' content='ie=edge'>
-								<meta http-equiv='Cache-Control' content='no-cache, no-store, must-revalidate'>
-								<meta http-equiv='Pragma' content='no-cache'>
-								<meta http-equiv='Expires' content='0'>
-								<meta http-equiv='Last-Modified' content='0'>
-								<link rel='icon' type='image/ico' href='$ruta_prueba/imagenes/BALON-LINKS.png' sizes='250x250'>
-								<script src='$ruta_prueba/js/jquery.min.js'></script>
-								<script>
-																
-									function verificar_expiracion(){
-										var req = new XMLHttpRequest();
-										req.open('GET', '$ruta_prueba/php/verificar_expiration_link.php?enlace=$_REQUEST[enlace]&hosting=$ruta_prov$carpeta/', false);
-										req.onload = onLoad;
-										req.send(null); 
-										function onLoad(e) {
-											if(e.target.readyState == 4 && e.target.status == 200) {
-													//alert(e.target.responseText);
-													if(e.target.responseText=='true'){
-														location.reload();
-													}
-											}
-										}
-									}
-								</script>	
-								<body onload='verificar_expiracion();'>
-									<iframe id='formInicio' src='$inicio' frameBorder='0' scrolling='no' style='width:100%; height:100%;'></iframe>
-								</body>
-							</html>
-				";
-			}
-	
-			fwrite($fh, $cadena);
-			$code=fclose($fh);
-			echo $ruta;
-			die();
-		}
-		if($_REQUEST['opcion']==2){ // comprobar si existe el link
-			verificar_link($_REQUEST['enlace']);
-		}
+		$fullpath = substr($_REQUEST['ruta'], 0, -4);
+		$inicio=$fullpath."php/contenido_iframe.php";//"index.html";
+		$ruta_prov='../'; 
+		//die("inicio: ".$inicio." - ".$_REQUEST['ruta']." - ".$_SERVER['DOCUMENT_ROOT']);
+		/*for($i=0;$i<count($prueba)-4;$i++){
+				$ruta_prov=$ruta_prov."../";
+		}*/
 		
-	}
+		if (is_file("../json/webaudio.json")) {
+			$datos_webaudio= new Webaudio();
+			$array_webaudio = $datos_webaudio->Load()->Get();
+
+			$duracion=$array_webaudio['tiempo_duracion'];
+			$modo_duracion=$array_webaudio['modo_duracion'];
+			$iframe_ancho=$array_webaudio['iframe_ancho'];
+			$iframe_largo=$array_webaudio['iframe_largo'];
+			$carpeta=$array_webaudio['carpeta_link'];
+		}
 	
-	function verificar_link($l_enlace){
-		$ruta="../json/link_es.json";
-		if (is_file($ruta)) {
-			$datos_enlace= file_get_contents($ruta);
-			$array_enlace = json_decode($datos_enlace, true);
-			$bandera='true';
-			foreach ($array_enlace as $key => $enlace) {
-				if ($enlace['enlace']== $l_enlace) {
-					$bandera='false';
-					echo $bandera;
-					die();
-				}
-			}
+		$carpeta=str_replace(' ','_',$carpeta);
+		//$ruta=$_REQUEST['ruta_hosting'].$carpeta.'/'.$_REQUEST['enlace'];
+		$ruta=$fullpath.$carpeta.'/'.$_REQUEST['enlace'];
+		$directorio=$ruta_prov.$carpeta.'/';	
+		//die("carpeta: ".$carpeta." - ".$_REQUEST['enlace']." - ".$ruta);	
+		//Validamos si la ruta de destino existe, en caso de no existir la creamos
+		if(!file_exists($directorio)){
+			mkdir($directorio, 0777) or die($directorio." - ".$ruta.": No se puede crear el directorio de extracci&oacute;n");	
+		}
+
+		$ruta_absoluta=$directorio.$_REQUEST['enlace'];
+		
+
+		$fecha=date('Y-m-d G:i:s');
+		if($modo_duracion=='HOURS'){
+			$nuevafecha = strtotime ( '+'.$duracion.' hour' , strtotime ( $fecha ) );
+		}
+		if($modo_duracion=='MINUTES'){
+			$nuevafecha = strtotime ( '+'.$duracion.' minute' , strtotime ( $fecha ) ) ;
+		}
+		if($modo_duracion=='YEARS'){
+			$nuevafecha = strtotime ( '+'.intval ($duracion)*(8760).' hour' , strtotime ( $fecha ) );
+		}
+
+		if (is_file("../json/webaudio.json")) {
+            $webaudio = new Webaudio();
+            $webaudio = $webaudio->Load()->Get();
+            $modo_duracion = $webaudio['modo_duracion'];
+        }
+
+        $modo = array(
+            "YEARS" => "AÑOS",
+            "MINUTES" => "MINUTOS",
+            "HOURS" => "HORAS"
+        );		
+
+		// guarda enlance en link_es.json
+		$enlace_new = array (
+				'enlace' 						=> $_REQUEST['enlace'],
+				'fecha_generada' 				=> $fecha,
+				'fecha_final'					=> 	date ( 'Y-m-j G:i:s' , $nuevafecha ),
+				'modo_duracion'					=> $modo[$modo_duracion]		
+		);
+		
+		if (is_file("../json/link_es.json")) {
+			$datos_enlace= new Link_es();
+			$array_enlace = $datos_enlace->Load()->Get();
+			array_push($array_enlace, $enlace_new);
 		}
 		else{
-			echo 'true';
-			die();
+			$array_enlace = array();
+			array_push($array_enlace, $enlace_new);
 		}
-		echo $bandera;
+
+		$datos_enlace->Set($array_enlace);
+		$code = $datos_enlace->Save();
+		
+		
+		// crea el enlance en el inicio del hosting
+		//$fh = fopen($ruta_absoluta, 'w');
+		$ruta_prueba=substr($_REQUEST['ruta'],0,-5 );
+		if($_REQUEST['opcion']==1 || $_REQUEST['opcion']==3 ){
+			$cadena="
+						<html>
+							<meta name='viewport' content='width=device-width, initial-scale=0.9'>
+							<meta http-equiv='X-UA-Compatible' content='ie=edge'>
+							<meta http-equiv='Cache-Control' content='no-cache, no-store, must-revalidate'>
+							<meta http-equiv='Pragma' content='no-cache'>
+							<meta http-equiv='Expires' content='0'>
+							<meta http-equiv='Last-Modified' content='0'>
+							<link rel='icon' type='image/ico' href='$ruta_prueba/imagenes/BALON-LINKS.png' sizes='250x250'>
+							<script src='$ruta_prueba/js/jquery.min.js'></script>
+							<script>
+															
+								function verificar_expiracion(){
+									var req = new XMLHttpRequest();
+									req.open('GET', '$ruta_prueba/php/verificar_expiration_link.php?enlace=$_REQUEST[enlace]&hosting=$ruta_prov$carpeta/', false);
+									req.onload = onLoad;
+									req.send(null); 
+									function onLoad(e) {
+										if(e.target.readyState == 4 && e.target.status == 200) {
+												//alert(e.target.responseText);
+												if(e.target.responseText=='true'){
+													location.reload();
+												}
+										}
+									}
+								}
+							</script>	
+							<body onload='verificar_expiracion();'>
+								<iframe id='formInicio' src='$inicio' frameBorder='0' scrolling='no' style='width:100%; height:100%;'></iframe>
+							</body>
+						</html>
+			";
+		}
+
+		//fwrite($fh, $cadena);
+		$code = write_file($ruta_absoluta, $cadena);
+		echo $ruta;
 		die();
 	}
-	
-	function mostrar_carpeta(){
-			if (is_file("../json/webaudio.json")) {
-				$datos_general= file_get_contents("../json/webaudio.json");
-				$array_general = json_decode($datos_general, true);
-				$carpeta=$array_general['carpeta_link'];
-			}	
-			echo $carpeta;
+	if($_REQUEST['opcion']==2){ // comprobar si existe el link
+		verificar_link($_REQUEST['enlace']);
 	}
 	
-	function mostrar_ancho(){
-			if (is_file("../json/webaudio.json")) {
-				$datos_general= file_get_contents("../json/webaudio.json");
-				$array_general = json_decode($datos_general, true);
-				$ancho=$array_general['iframe_ancho'];
-			}	
-			echo $ancho;
+}
+
+function verificar_link($l_enlace){
+	$ruta="../json/link_es.json";
+	if (is_file($ruta)) {
+		$datos_enlace= new Link_es();
+		$array_enlace = $datos_enlace->Load()->Get();
+		$bandera='true';
+
+		foreach ($array_enlace as $key => $enlace) {
+			if ($enlace['enlace']== $l_enlace) {
+				$bandera='false';
+				echo $bandera;
+				die();
+			}
+		}
 	}
-	
-	function mostrar_largo(){
-			if (is_file("../json/webaudio.json")) {
-				$datos_general= file_get_contents("../json/webaudio.json");
-				$array_general = json_decode($datos_general, true);
-				$largo=$array_general['iframe_largo'];
-			}	
-			echo $largo;
+	else{
+		echo 'true';
+		die();
 	}
+	echo $bandera;
+	die();
+}
+
+function mostrar_carpeta(){
+		if (is_file("../json/webaudio.json")) {
+			$datos_general= new Webaudio();
+			$array_general = $datos_general->Load()->Get();
+			$carpeta=$array_general['carpeta_link'];
+		}	
+		echo $carpeta;
+}
+
+function mostrar_ancho(){
+		if (is_file("../json/webaudio.json")) {
+			$datos_general= new Webaudio();
+			$array_general = $datos_general->Load()->Get();
+			$ancho=$array_general['iframe_ancho'];
+		}	
+		echo $ancho;
+}
+
+function mostrar_largo(){
+		if (is_file("../json/webaudio.json")) {
+			$datos_general= new Webaudio();
+			$array_general = $datos_general->Load()->Get();
+			$largo=$array_general['iframe_largo'];
+		}	
+		echo $largo;
+}
 ?>
 <html>
 	<head>

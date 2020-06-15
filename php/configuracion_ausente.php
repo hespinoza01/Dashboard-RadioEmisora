@@ -1,16 +1,24 @@
 ﻿<?php
+
+require_once 'data.php';
+
 function listar_generos(){
     
     if (is_file("../json/generos.json")) {
-			$datos_generos= file_get_contents("../json/generos.json");
-		$array_generos = json_decode($datos_generos, true);    
+		$datos_generos= new Generos();
+		$array_generos = $datos_generos->Load()->Get();
+
 		echo "<span><strong>Lista de Géneros [ID-NOMBRE-CARPETA]:</strong></span><input type='hidden' id='n_generos' value='".count($array_generos)."'/><br><br>";
+
 		if(count($array_generos)==0){
 			echo "<span>No hay géneros registrados...</span>";
 		}
+
 		$i=0;
 		$vueltas=0;
+
 		sort($array_generos);
+
 		foreach ($array_generos as $key => $genero) {
 				if(count($genero['AUSENTE_PRESENTE'])>0){
 					$vueltas=count($genero['AUSENTE_PRESENTE']);	
@@ -42,20 +50,20 @@ function listar_generos(){
 				}
 			</script>
 	";
-		$i=0;
-		//$vueltas=0;
-		foreach ($array_generos as $key => $genero) {
-				//$vueltas=count($genero['AUSENTE_PRESENTE']);
-				for($j=0;$j<$vueltas;$j++){
-					echo "<script>document.getElementById('ausente'+$i+''+$j).value=".((count($genero['AUSENTE_PRESENTE'])==0)?'0':$genero['AUSENTE_PRESENTE'][$j])."</script>";
-					if(count($genero['AUSENTE_PRESENTE'])!=0 && $genero['AUSENTE_PRESENTE'][$j]=='1')
-						echo "<script>document.getElementById('ausente'+$i+''+$j).style= 'text-align: center; width:20px; margin-left: 10px; font-size:25px; font-weight: bold; color:green; border:1.5px solid blue;';</script>";
-					
-				}	
-				$i++;				
-				//echo "<div style='position: absolute; margin-left:300px;' id=$genero[ID]></div><input type='hidden' id='entrada$i' name='entrada$i' value='$genero[ID]'/><span>[$genero[ID]-$genero[Name]-$genero[carpeta]]:</span><br>";
-				//$i=$i+1;
-		}
+
+	   $i=0;
+	   //$vueltas=0;
+	   foreach ($array_generos as $key => $genero) {
+			//$vueltas=count($genero['AUSENTE_PRESENTE']);
+			for($j=0;$j<$vueltas;$j++){
+				echo "<script>document.getElementById('ausente'+$i+''+$j).value=".((count($genero['AUSENTE_PRESENTE'])==0)?'0':$genero['AUSENTE_PRESENTE'][$j])."</script>";
+				if(count($genero['AUSENTE_PRESENTE'])!=0 && $genero['AUSENTE_PRESENTE'][$j]=='1')
+					echo "<script>document.getElementById('ausente'+$i+''+$j).style= 'text-align: center; width:20px; margin-left: 10px; font-size:25px; font-weight: bold; color:green; border:1.5px solid blue;';</script>";
+				
+			}
+            	
+			$i++;
+	   }
     }
 }
 

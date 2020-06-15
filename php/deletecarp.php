@@ -1,7 +1,8 @@
 <?php
 
+require_once 'data.php';
 
-$directorio =  '../../audios/'.$_POST['listcarp'];
+$directorio =  AUDIOS_RUTA.$_POST['listcarp'];
 
 function deleteDirectory($dir) {
     if (!file_exists($dir)) {
@@ -9,7 +10,7 @@ function deleteDirectory($dir) {
     }
 
     if (!is_dir($dir)) {
-        return unlink($dir);
+        return unlink($dir) or die("Error on delete file '$dir'");
     }
 
     foreach (scandir($dir) as $item) {
@@ -23,7 +24,7 @@ function deleteDirectory($dir) {
 
     }
 
-    return rmdir($dir);
+    return rmdir($dir) or die("Error on delete dir '$dir'");;
 }
 
 deleteDirectory($directorio);

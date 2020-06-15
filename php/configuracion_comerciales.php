@@ -1,10 +1,13 @@
 ﻿<?php
+
+require_once 'data.php';
+
 function listar_directorios_ruta($ruta){
     // abrir un directorio y listarlo recursivo
     if (is_dir($ruta)) {
         //echo '<select name="listcarp" id="listcarp" class="listcarp">'; 
         echo '<select required name="listcarp" id="listcarp" class="formupload">';
-        echo '<option value="0" disabled selected>-Selecciona una carpeta-</option>';
+        echo '<option value disabled selected>-Selecciona una carpeta-</option>';
        if ($dh = opendir($ruta)) {
         
           while (($file = readdir($dh)) !== false) {
@@ -30,25 +33,36 @@ function listar_directorios_ruta($ruta){
 	function listar_comerciales(){
 		echo "<span><strong>LISTA DE COMERCIALES:</strong></span><br><br>";
 		if (is_file("../json/comerciales.json")) {
-			$datos_comerciales = file_get_contents("../json/comerciales.json");
-			$array_comerciales = json_decode($datos_comerciales, true);
+			$datos_comerciales = new Comerciales();
+			$array_comerciales = $datos_comerciales->Load()->Get();
+
 			if(count($array_comerciales)==0){
 				echo "No hay comerciales registrados...<br>";
 				echo "_______________________________________________________________________<br>";			
 			}
+
 			sort($array_comerciales);
+
 			for($i=0;$i<count($array_comerciales);$i++){
 				echo (($i<11)?('0'.($i+1)):($i+1))."&nbsp;&nbsp;&nbsp;|<span><strong>ID:</strong> ".$array_comerciales[$i]['ID']."  <strong>Tipo:</strong> ".(($array_comerciales[$i]['tipo']==1)?'1-GENERAL':(($array_comerciales[$i]['tipo']==2)?'2-GENEROS':'3.-ENTRADAS'));
+
 				echo " <strong>Descripcion:</strong> ".$array_comerciales[$i]['descripcion']." <strong>Tracks:</strong> ".$array_comerciales[$i]['Ntracks'];
+
 				echo " <strong>Revolver:</strong> ".$array_comerciales[$i]['modo_revolver']."<a name='eliminar-comercial' href='../php/eliminar_comercial.php?ID=".$array_comerciales[$i]['ID']."&pagina=comerciales'> ELIMINAR </a>";
+
 				echo " <a name='editar-comercial' href='../php/editar_comercial.php?ID=".$array_comerciales[$i]['ID']."&pagina=comerciales'> EDITAR </a><br>";
+
 				echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<strong>Carpeta:</strong> ../".$array_comerciales[$i]['carpeta']."/ </span><br>";
+
 				$array_lista=[];
+
 				for($j=0;$j<count($array_comerciales[$i]['lista']);$j++){
 					$array_lista[$j]=basename($array_comerciales[$i]['lista'][$j]);
 				}
+
 				$lista="";
 				$lista=implode("<br>",$array_lista);
+                
 				echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<strong>Lista: ".count($array_comerciales[$i]['lista'])." Audios</strong><div style='background-color: yellow; border: solid green; width: 100%; height:115px; overflow: auto;'> $lista </div></span>";
 				echo "_______________________________________________________________________<br>";			
 			}
@@ -261,7 +275,7 @@ function listar_directorios_ruta($ruta){
 			<br>
 			<span>Tipo Comercial:</span>
 			<select required name="tipo_comercial" id="tipo_comercial" class="formupload">
-                <option value="-1" disabled selected>Tipo Comercial</option>
+                <option value disabled selected>Tipo Comercial</option>
               	<option value="1">1- General</option>
                 <option value="2">2- De Géneros</option>
 				<option value="3">3- De Entradas</option>
@@ -287,7 +301,7 @@ function listar_directorios_ruta($ruta){
 			<br>
 			<span>Modo de Revolver:</span>
 			<select required name="revolver_comercial" id="revolver_comercial" class="formupload" onchange="verificar_modo(this.value);">
-                <option value="0" disabled selected>Modo Revolver</option>
+                <option value disabled selected>Modo Revolver</option>
               	<option value="1">1</option>
                 <option value="2">2</option>
 				<option value="3">3</option>
