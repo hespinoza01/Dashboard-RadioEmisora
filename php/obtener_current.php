@@ -1,7 +1,6 @@
 <?php
 
 require_once 'data.php';
-include 'no_cache_header.php';
 
 $conectividad='SI';
 $crear='NO';

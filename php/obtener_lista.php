@@ -2,7 +2,6 @@
 
 require_once 'data.php';
 require_once 'data_file.php';
-include 'no_cache_header.php';
 
 if (is_file("../json/lista.json")) {
 	$datos_lista = new Lista();

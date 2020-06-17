@@ -1,7 +1,6 @@
 <?php
 
 require_once 'data.php';
-include 'no_cache_header.php';
 
 $listas_nuevas= json_decode($_POST['lista'], true);
 
