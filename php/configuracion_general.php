@@ -1,5 +1,6 @@
 ﻿<?php
 require_once 'data.php';
+include 'no_cache_header.php';
 
 if(isset($_REQUEST['opcion'])){
 	if($_REQUEST['opcion']==1){
@@ -171,6 +172,10 @@ function listar_variables(){
 <html>
 <head>
     <meta charset="iso-8859-1">
+    <?php
+        require_once 'no_cache_htmltag.php';
+        no_cache_htmltag();
+    ?>
     <title>CONFIGURACION RADIO</title>
     <style>
         @font-face {

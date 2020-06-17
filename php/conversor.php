@@ -1,6 +1,7 @@
 ﻿<?php
 
 require_once 'data.php';
+include 'no_cache_header.php';
 
 function listar_directorios_ruta($ruta){
     // abrir un directorio y listarlo recursivo
@@ -9,20 +10,18 @@ function listar_directorios_ruta($ruta){
         echo '<select required name="listcarp" id="listcarp" class="listcarp">';
         echo '<option value="0" disabled selected>-Selecciona una carpeta-</option>';
        if ($dh = opendir($ruta)) {
-        
-          while (($file = readdir($dh)) !== false) {
-             //esta línea la utilizaríamos si queremos listar todo lo que hay en el directorio
-             //mostraría tanto archivos como directorios
-             //echo "<br>Nombre de archivo: $file : Es un: " . filetype($ruta . $file);
-             if (is_dir($ruta . $file) && $file!="." && $file!=".."){
+            $dirs = scandir($ruta);
+            $list_dirs = array_filter($dirs, function($item) use($ruta){ return is_dir($ruta.$item) && !in_array($item, ['.','..']); });
+
+            asort($list_dirs);
+
+            foreach ($list_dirs as $dir) {
                 //solo si el archivo es un directorio, distinto que "." y ".."
-                $val64 = explode("_",$file);
-                if($val64[0]!="fonts" && $val64[0]!="js"&& $val64[0]!="AUDIOS"&& $val64[0]!="css"&& $val64[0]!="imagenes") {
-                    echo "<option value=\"$file\">$file</option>";
-                }
-                
-             }
-          }
+                $val64 = explode("_",$dir);
+                if($val64[0]!="fonts" && $val64[0]!="images" && $val64[0]!="js"&& $val64[0]!="AUDIOS"&& $val64[0]!="css"&& $val64[0]!="imagenes") {
+                    echo "<option value=\"$dir\">$dir</option>";
+                    }
+              }    
           
        closedir($dh);
        }
@@ -37,20 +36,18 @@ function listar_directorios_audios($ruta, $name){
         echo '<select required name="'.$name.'" id="'.$name.'" class="'.$name.' fz-15">';
         echo '<option value="0" disabled selected>-Selecciona una carpeta-</option>';
        if ($dh = opendir($ruta)) {
-        
-          while (($file = readdir($dh)) !== false) {
-             //esta línea la utilizaríamos si queremos listar todo lo que hay en el directorio
-             //mostraría tanto archivos como directorios
-             //echo "<br>Nombre de archivo: $file : Es un: " . filetype($ruta . $file);
-             if (is_dir($ruta . $file) && $file!="." && $file!=".."){
+            $dirs = scandir($ruta);
+            $list_dirs = array_filter($dirs, function($item) use($ruta){ return is_dir($ruta.$item) && !in_array($item, ['.','..']); });
+
+            asort($list_dirs);
+
+            foreach ($list_dirs as $dir) {
                 //solo si el archivo es un directorio, distinto que "." y ".."
-                $val64 = explode("_",$file);
-                if($val64[0]!="fonts" && $val64[0]!="js" && $val64[0]!="AUDIOS"&& $val64[0]!="css"&& $val64[0]!="imagenes") {
-                    echo "<option value=\"$file\">$file</option>";
-                }
-                
-             }
-          }
+                $val64 = explode("_",$dir);
+                if($val64[0]!="fonts" && $val64[0]!="images" && $val64[0]!="js"&& $val64[0]!="AUDIOS"&& $val64[0]!="css"&& $val64[0]!="imagenes") {
+                    echo "<option value=\"$dir\">$dir</option>";
+                    }
+              }    
           
        closedir($dh);
        }
@@ -65,20 +62,18 @@ function listar_directorios_descarga($ruta){
         echo '<select name="listnameaudiosdescarga" id="listnameaudiosdescarga" class="listnameaudiosdescarga fz-15">';
         echo '<option value="0" disabled selected>-Selecciona una carpeta-</option>';
        if ($dh = opendir($ruta)) {
-        
-          while (($file = readdir($dh)) !== false) {
-             //esta línea la utilizaríamos si queremos listar todo lo que hay en el directorio
-             //mostraría tanto archivos como directorios
-             //echo "<br>Nombre de archivo: $file : Es un: " . filetype($ruta . $file);
-             if (is_dir($ruta . $file) && $file!="." && $file!=".."){
+            $dirs = scandir($ruta);
+            $list_dirs = array_filter($dirs, function($item) use($ruta){ return is_dir($ruta.$item) && !in_array($item, ['.','..']); });
+
+            asort($list_dirs);
+
+            foreach ($list_dirs as $dir) {
                 //solo si el archivo es un directorio, distinto que "." y ".."
-                $val64 = explode("_",$file);
-                if($val64[0]!="fonts" && $val64[0]!="js" && $val64[0]!="AUDIOS"&& $val64[0]!="css"&& $val64[0]!="imagenes") {
-                    echo "<option value=\"$file\">$file</option>";
-                }
-                
-             }
-          }
+                $val64 = explode("_",$dir);
+                if($val64[0]!="fonts" && $val64[0]!="images" && $val64[0]!="js"&& $val64[0]!="AUDIOS"&& $val64[0]!="css"&& $val64[0]!="imagenes") {
+                    echo "<option value=\"$dir\">$dir</option>";
+                    }
+              }    
           
        closedir($dh);
        }
@@ -150,6 +145,10 @@ function showFiles($path){
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <?php
+        require_once 'no_cache_htmltag.php';
+        no_cache_htmltag();
+    ?>
     <title>Convertidor</title>
     <style>
         @font-face {
@@ -371,13 +370,13 @@ $(document).ready(function()
             <select required name="optype" id="optype" class="formupload">
                 <option value="0" disabled selected>Elegir Extensión de Archivo a Convertir</option>
 			<option value="1">SIN CONVERSION</option>
-                <option value=".txt">TXT</option>
+                <option value=".ini">INI</option>
                 <option value=".js">JS</option>
                 <option value=".json">JSON</option>
-				<option value=".ini">INI</option>
+                <option value=".log">LOG</option>
+                <option value=".pdf">PDF</option>
 				<option value=".rtf">RTF</option>
-				<option value=".log">LOG</option>
-				<option value=".pdf">PDF</option>
+                <option value=".txt">TXT</option>
             </select>
                    
 

@@ -1,3 +1,5 @@
+<?php include 'no_cache_header.php'; ?>
+
 <html>
     <head>
         <meta charset="UTF-8" />

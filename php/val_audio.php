@@ -1,4 +1,6 @@
 <?php
+include 'no_cache_header.php';
+
         $ruta= $_REQUEST['ruta'];
 		$extension = $_REQUEST['extension'];
 		$audB = file_get_contents($ruta);  // colocar aqui el archivo a reproducir	

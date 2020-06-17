@@ -1,6 +1,8 @@
 <?php
 
-$nombrebs64 = '../../audios/'.$_POST['listnameaudiosdescarga'];
+require_once 'data.php';
+
+$nombrebs64 = AUDIOS_RUTA.$_POST['listnameaudiosdescarga'];
 
 // Get real path for our folder
 $rootPath = realpath($nombrebs64);
@@ -35,7 +37,7 @@ foreach ($files as $name => $file)
 $zip->close();
 
 $fileName = basename($nombrebs64.".zip");
-$filePath = '../../audios/'.$fileName;
+$filePath = AUDIOS_RUTA.$fileName;
 if(!empty($fileName) && file_exists($filePath)){
     // Define headers
     header("Cache-Control: public");

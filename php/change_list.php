@@ -1,6 +1,7 @@
 <?php
 
 require_once 'data.php';
+include 'no_cache_header.php';
 
 $datos_lista1= new Lista1();
 

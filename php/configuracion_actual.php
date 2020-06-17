@@ -1,6 +1,7 @@
 ﻿<?php
 
 require_once 'data.php';
+include 'no_cache_header.php';
 
 function listar_variables(){
 				
@@ -123,6 +124,10 @@ function listar_generos(){
 <html>
 <head>
     <meta charset="iso-8859-1">
+    <?php
+        require_once 'no_cache_htmltag.php';
+        no_cache_htmltag();
+    ?>
     <title>CONFIGURACION RADIO</title>
     <style>
         @font-face {

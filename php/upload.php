@@ -1,4 +1,7 @@
 <?php
+
+require_once 'data.php';
+
 if(isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST")
 {
 	$vpb_file_name = strip_tags($_FILES['upload_file']['name']); //File Name
@@ -13,9 +16,9 @@ if(isset($_POST) && $_SERVER['REQUEST_METHOD'] == "POST")
 	$switchopctions_musica = $_POST['switchopctions_musica'];
 
 	if ($switchopctions_musica==1) { // Nueva Carpeta
-		$directorio ='../../audios/'.$nomcarp.'/'; // Declaramos un  variable con la ruta donde guardaremos los archivos
+		$directorio =AUDIOS_RUTA.$nomcarp.'/'; // Declaramos un  variable con la ruta donde guardaremos los archivos
 	} else { // Carpeta
-		$directorio ='../../audios/'.$listnamemusica.'/'; // Declaramos un  variable con la ruta donde guardaremos los archivos
+		$directorio =AUDIOS_RUTA.$listnamemusica.'/'; // Declaramos un  variable con la ruta donde guardaremos los archivos
 	}
 
 	//Validamos si la ruta de destino existe, en caso de no existir la creamos

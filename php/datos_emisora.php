@@ -1,6 +1,7 @@
 <?php
 
 require_once 'data.php';
+include 'no_cache_header.php';
 
 if (is_file("../json/general.json")) {
 	$datos_variables = new General();

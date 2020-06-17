@@ -1,6 +1,7 @@
 <?php
 
 require_once 'data.php';
+include 'no_cache_header.php';
 
 $lista_nueva= array(
 	'time_release' 		=> date('Y-m-d G:i:s'),

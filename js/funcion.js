@@ -38,7 +38,7 @@
 				if (xhr.readyState === xhr.DONE) {
 					if (xhr.status === 200) {
 						var responjson= JSON.parse(this.responseText);
-						console.log(new Date()); // FECHA Y VERSION DEL PROGRAMA
+						console.log(new Date(), responjson); // FECHA Y VERSION DEL PROGRAMA
 						cargar_variables(responjson);
 						var revolver= JSON.parse(responjson.revolver);	
 					

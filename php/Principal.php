@@ -1,7 +1,13 @@
-﻿<!DOCTYPE html>
+﻿<?php include 'no_cache_header.php'; ?>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<?php
+		require_once 'no_cache_htmltag.php';
+		no_cache_htmltag();
+	?>
 	<title>Sistema Principal</title>
 	<link rel="stylesheet" href="../css/menu.css" type="text/css" >
 	<link rel="stylesheet" href="../css/ventana.css" type="text/css" >

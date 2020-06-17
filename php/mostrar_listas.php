@@ -1,4 +1,6 @@
 <?php
+include 'no_cache_header.php';
+
 	if (is_file("../json/lista1.json")) {
 		$datos_lista = file_get_contents("../json/lista1.json");
 	}
