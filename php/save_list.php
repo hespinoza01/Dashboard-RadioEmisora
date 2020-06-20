@@ -1,8 +1,11 @@
 <?php
 
 require_once 'data.php';
+require_once 'data_file.php';
 
 $listas_nuevas= json_decode($_POST['lista'], true);
+$current_lista = -1;
+$tmp_lista = array();
 
 
 if($_POST['current_lista']!=0){
@@ -28,13 +31,13 @@ $code = $datos_lista->Save();
 
 $lista=array(
 		'time_control' => date('Y-m-d G:i:s'),
-		'current_lista' => $current_lista,
+		'current_lista' => (int)$current_lista,
 		'lista' 		=> $tmp_lista,
 		'revolver'		=> false
 );
 
 $ruta="../json/lista.json";
-$datos_lista= new Lista1();
+$datos_lista= new Lista();
 $datos_lista->Set($lista);
 $datos_lista->Save();
 

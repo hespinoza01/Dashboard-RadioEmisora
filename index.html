@@ -343,39 +343,43 @@
 				xhr.onload = function () {
 					if (xhr.readyState === xhr.DONE) {
 						if (xhr.status === 200) {
-							var responjson= JSON.parse(this.responseText);
-							// sicroniza la lista de variables
-							var l_var=JSON.parse(responjson.lista_variables);
-							var l_web=JSON.parse(responjson.lista_web); console.log(l_var, l_web);
-							
-							// VARIABLES DE DATOS EMISORA (LOGO, NOMBRE Y SLOGAN)
-							document.getElementById('titulo_emisora').innerHTML=l_var.nombre_emisora;
-							document.getElementById('titulo_emisora').style="font-size: "+l_var.letra_emisora+"px; color:"+l_var.color_emisora+";";
-																		
-							document.getElementById('slogan_emisora').innerHTML=l_var.slogan_emisora;
-							document.getElementById('slogan_emisora').style="font-size: "+l_var.letra_slogan+"px; color:#"+l_var.color_slogan+";";
-							
-							document.getElementById('imagen_emisora').style="border-radius:"+l_var.redondeo+"%; width:"+l_var.ancho_logo+"; heigth:"+l_var.largo_logo+";";
-							document.getElementById('imagen_emisora').src=l_var.url_logo;
-							
-						// VARIABLES DE COLORES PARA LA WEB AUDIO
-							document.getElementById('handler').style="background-color: #"+l_web.cuadro+"; color:"+l_web.numero+";";
-							color_signo='#'+l_web.signo;
-							document.getElementById('progress').style="background-color: #"+l_web.barra1+";";
-							document.getElementById('track').style="background-color: #"+l_web.barra2+";";
-							document.getElementById('analyser_render').style="background-color: #"+l_web.barra3+";";
-							color_barritas='#'+l_web.barritas;
-							color_tiempo='#'+l_web.tiempo;
-							document.getElementById('timesControlInfo').style="color:"+l_web.slash+";";
-							color_guion='#'+l_web.guion;
-							color_puntos='#'+l_web.puntos;
-							document.getElementById('control_lista').style="display:"+l_web.visibilidad+";";
-							
-							document.getElementById('img_compartir').style="display:"+l_web.visible_compartir+";";
-							
-							tactual=l_web.tactual;
-							tduracion=l_web.tduracion;
-							trestante=l_web.trestante;
+							try {
+								var responjson= JSON.parse(this.responseText);
+								// sicroniza la lista de variables
+								var l_var=JSON.parse(responjson.lista_variables);
+								var l_web=JSON.parse(responjson.lista_web); console.log(l_var, l_web, typeof l_var);
+								
+								// VARIABLES DE DATOS EMISORA (LOGO, NOMBRE Y SLOGAN)
+								document.getElementById('titulo_emisora').innerHTML=l_var.nombre_emisora;
+								document.getElementById('titulo_emisora').style="font-size: "+l_var.letra_emisora+"px; color:"+l_var.color_emisora+";";
+																			
+								document.getElementById('slogan_emisora').innerHTML=l_var.slogan_emisora;
+								document.getElementById('slogan_emisora').style="font-size: "+l_var.letra_slogan+"px; color:#"+l_var.color_slogan+";";
+								
+								document.getElementById('imagen_emisora').style="border-radius:"+l_var.redondeo+"%; width:"+l_var.ancho_logo+"; heigth:"+l_var.largo_logo+";";
+								document.getElementById('imagen_emisora').src=l_var.url_logo;
+								
+							// VARIABLES DE COLORES PARA LA WEB AUDIO
+								document.getElementById('handler').style="background-color: #"+l_web.cuadro+"; color:"+l_web.numero+";";
+								color_signo='#'+l_web.signo;
+								document.getElementById('progress').style="background-color: #"+l_web.barra1+";";
+								document.getElementById('track').style="background-color: #"+l_web.barra2+";";
+								document.getElementById('analyser_render').style="background-color: #"+l_web.barra3+";";
+								color_barritas='#'+l_web.barritas;
+								color_tiempo='#'+l_web.tiempo;
+								document.getElementById('timesControlInfo').style="color:"+l_web.slash+";";
+								color_guion='#'+l_web.guion;
+								color_puntos='#'+l_web.puntos;
+								document.getElementById('control_lista').style="display:"+l_web.visibilidad+";";
+								
+								document.getElementById('img_compartir').style="display:"+l_web.visible_compartir+";";
+								
+								tactual=l_web.tactual;
+								tduracion=l_web.tduracion;
+								trestante=l_web.trestante;
+							}catch{
+								console.error(this.responseText);
+							}
 						}
 					}
 				};

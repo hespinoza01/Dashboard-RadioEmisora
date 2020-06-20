@@ -2,7 +2,6 @@
 
 require_once 'data.php';
 require_once 'data_file.php';
-include 'no_cache_header.php';
 
 	$datos_generos = new Generos();
 	$datos_comerciales = new Comerciales();
@@ -69,7 +68,7 @@ include 'no_cache_header.php';
 			"revolver" => $revolver,
 			"cabeza" => $cabeza
 	);
-	
+	//logger(json_encode($arr_list, JSON_FORCE_OBJECT));
     $json_string = json_encode($arr_list, JSON_FORCE_OBJECT);
  	echo $json_string;	
 

@@ -157,7 +157,8 @@ class Lista extends Data{
             array(
                 'time_control'      => date('Y-m-d G:i:s'),
                 'current_lista'     => 0,
-                'lista'             => json_encode(array(),JSON_UNESCAPED_UNICODE)
+                'lista'             => json_encode(array(),JSON_UNESCAPED_UNICODE),
+                'revolver'          => 'false'
             ));
     }
 

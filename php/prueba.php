@@ -36,7 +36,7 @@ echo "</br>";
 echo getcwd();
 echo "</br>";
 echo write_file("e", "s");*/
-
+/*
 require_once 'data.php';
 
 $a = new GenerosAP();
@@ -52,5 +52,9 @@ echo "<hr>";
 print_r($c->Load()->GetString());
 
 echo "<hr>";
-echo $AUDIOS_RUTA;
+echo AUDIOS_RUTA;*/
+
+print_r($_POST);
+echo $_SERVER['REQUEST_METHOD'];
+echo count($_POST).", ".count($_GET);
 ?>
