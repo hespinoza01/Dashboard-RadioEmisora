@@ -167,7 +167,7 @@ function siguiente(){
     current_track++;
 
     if(current_lista==nronda-1 && current_track == LISTA.length-1){
-        //procesar_listas();
+        procesar_listas();
     }
     if(current_track == LISTA.length){
         current_track=0;
