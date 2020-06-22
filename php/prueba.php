@@ -54,7 +54,8 @@ print_r($c->Load()->GetString());
 echo "<hr>";
 echo AUDIOS_RUTA;*/
 
-print_r($_POST);
-echo $_SERVER['REQUEST_METHOD'];
-echo count($_POST).", ".count($_GET);
+//file_put_contents("../".$_REQUEST['func'].".txt", "Salida a las ".date('Y-m-d G:i:s')." desde ".$_REQUEST['func']);
+//echo md5(microtime(true).mt_Rand());
+session_start();
+echo $_SESSION['user'];
 ?>

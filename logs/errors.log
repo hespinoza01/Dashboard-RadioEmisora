@@ -2,3 +2,13 @@
 2020-06-19 19:27:57 ==> Write Error: ../json/lista.json no existe
 2020-06-19 19:28:22 ==> Write Error: ../json/lista1.json no existe
 2020-06-19 19:47:47 ==> 1, 
+2020-06-20 22:57:07 ==> Read Error: ../json/usuarios.js no existe
+2020-06-20 22:57:07 ==> Write Error: ../json/usuarios.js no existe
+2020-06-20 23:01:45 ==> Read Error: ../json/usuarios.json no existe
+2020-06-20 23:01:45 ==> Write Error: ../json/usuarios.json no existe
+2020-06-20 23:45:54 ==> Read Error: ../json/usuarios.json no existe
+2020-06-20 23:45:54 ==> Write Error: ../json/usuarios.json no existe
+2020-06-20 23:50:43 ==> Read Error: ../json/usuarios.json no existe
+2020-06-20 23:50:43 ==> Write Error: ../json/usuarios.json no existe
+2020-06-21 0:14:18 ==> Read Error: ../json/usuarios.json no existe
+2020-06-21 0:14:18 ==> Write Error: ../json/usuarios.json no existe

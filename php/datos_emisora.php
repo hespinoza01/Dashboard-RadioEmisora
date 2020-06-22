@@ -3,6 +3,9 @@
 require_once 'data.php';
 include 'no_cache_header.php';
 
+//session_start();
+//$_SESSION['user'] = md5(microtime(true).mt_Rand());
+
 if (is_file("../json/general.json")) {
 	$datos_variables = new General();
 	$array_variables = $datos_variables->Load()->GetString();
@@ -17,7 +20,7 @@ if (is_file("../json/webaudio.json")) {
 
 $arr_list = array(
 		"lista_variables"	=> $array_variables,
-		"lista_web" 	=> $array_web 
+		"lista_web" 	=> $array_web
 );
 
 $json_string = json_encode($arr_list, JSON_FORCE_OBJECT);

@@ -95,11 +95,12 @@ function sincronizar() {
 
 			let revolver = getJson(data.revolver, "error al cargar data.revolver into 'sincronizar'");
 			
-			if(revolver == false) {
+			if(revolver == false || sessionStorage.getItem('primer_usuario') != null) {
 				if(GENEROS.length != 0){
 					update_configuracion();
 					inicializar_variables();
-					principio(); 
+					principio();
+                    sessionStorage.setItem('primer_usuario', 'true');
 				}
 			}else {
 				if(version != 0 && time_delete != 0) {
@@ -192,7 +193,7 @@ function obtener_lista(){
     fetch('php/change_list.php?current_lista='+current_lista)
     	.then(res => res.json())
     	.then(data => {
-    		LISTA = data.lista;
+    		LISTA = getJson(data.lista, "Error on get json from 'obtener_lista'");
             current_lista = data.current_lista;
             inicio();   
     	})
@@ -314,7 +315,7 @@ function cargar_variables(data) {
     current_times = lista_current.current_times;
     
     // SINCRONIZANDO LISTA DE REPRODUCCION
-    LISTA = lista_reproduccion.lista;
+    LISTA = getJson(lista_reproduccion.lista, "Error parse lista into line:318");
 }
 
 
@@ -489,6 +490,9 @@ function crear_listas() {
 			current_track = 0;
 
 			inicio();
+
+            if(sessionStorage.getItem('primer_usuario') != null)
+                inicializar_lista();
 		})
 		.catch(error => console.error("Error on fetch 'save_list' into 'crear_listas': ", error));
 }

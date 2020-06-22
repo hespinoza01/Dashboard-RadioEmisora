@@ -2,6 +2,7 @@
 
 require_once 'data.php';
 require_once 'data_file.php';
+include 'no_cache_header.php';
 
 if (is_file("../json/lista.json")) {
 	$datos_lista = new Lista();
@@ -21,8 +22,8 @@ if (is_file("../json/current.json")) {
 }
 
 $arr_list = array(
-			"lista_reproduccion"	=> $lista_reproduccion,
-			"lista_current"     => $datos_current
+	"lista_reproduccion"	=> $lista_reproduccion,
+	"lista_current"     => $datos_current
 );
 
 $json_string = json_encode($arr_list, JSON_FORCE_OBJECT);

@@ -1,9 +1,11 @@
 <?php
 
 require_once 'data.php';
+include 'no_cache_header.php';
 
 $conectividad='SI';
 $crear='NO';
+$release = '';
 
 
 if (is_file("../json/current.json")) {
@@ -23,6 +25,7 @@ if (is_file("../json/current.json")) {
 			$array_lista = $datos_lista->Load()->Get();
 
 			$time_control=$array_lista['time_control'];
+			$release=$time_control;
 			$segundoTimes2 = strtotime(date('Y-m-d G:i:s')) - strtotime($time_control);
 			
 			if($segundoTimes2>60){
@@ -38,7 +41,8 @@ $arr_current=array(
 	'current_lista' =>	$current_lista,
 	'current_track' => $current_track,
 	'crear'			=> $crear,
-	'current_times'		=> $current_times
+	'current_times'		=> $current_times,
+	'release'	=> $release
 );
 $json_string = json_encode($arr_current, JSON_FORCE_OBJECT);
 	echo $json_string;
