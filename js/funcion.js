@@ -95,12 +95,12 @@ function sincronizar() {
 
 			let revolver = getJson(data.revolver, "error al cargar data.revolver into 'sincronizar'");
 			
-			if(revolver == false || sessionStorage.getItem('primer_usuario') != null) {
+			if(revolver == false){ //|| sessionStorage.getItem('primer_usuario') != null) {
 				if(GENEROS.length != 0){
 					update_configuracion();
 					inicializar_variables();
 					principio();
-                    sessionStorage.setItem('primer_usuario', 'true');
+                    //sessionStorage.setItem('primer_usuario', 'true');
 				}
 			}else {
 				if(version != 0 && time_delete != 0) {
@@ -169,13 +169,16 @@ function siguiente(){
 
     if(current_lista==nronda-1 && current_track == LISTA.length-1){
         procesar_listas();
+        inicializar_lista();
+        current_lista = 0;
+        current_track = 0;
     }
     if(current_track == LISTA.length){
         current_track=0;
         current_lista++;
 
         if(current_lista==nronda){
-            current_lista=0;
+            current_lista=0; 
             inicializar_lista();
         }
         else{
@@ -491,8 +494,8 @@ function crear_listas() {
 
 			inicio();
 
-            if(sessionStorage.getItem('primer_usuario') != null)
-                inicializar_lista();
+            //if(sessionStorage.getItem('primer_usuario') != null)
+            //    inicializar_lista();
 		})
 		.catch(error => console.error("Error on fetch 'save_list' into 'crear_listas': ", error));
 }
