@@ -136,16 +136,16 @@ function inicio(){
         }
     }
 
-    let extension, indice;
+    let extension;//, indice;
     if(LISTA.length!=0){
-        indice = LISTA[current_track].lastIndexOf(".");
-        extension =  LISTA[current_track].slice(indice);
+        //indice = LISTA[current_track].lastIndexOf(".");
+        extension =  LISTA[current_track].split(".").pop();;
         // EXTENSIONES PERMITIDAS
-        if(extension == ".js" || extension == ".json" || extension == ".txt"){
-            cargar_audio(extension,getAbsolutePath()+LISTA[current_track].substring(3));
+        if(extension == "js" || extension == "json" || extension == "txt"){
+            cargar_audio(extension,LISTA[current_track]);//.substring(3));
         }
         else 
-        if(extension == ".mp3" || extension == ".ogg" || extension == ".opus" || extension == ".aac" || extension == ".m4a" ){ // aac mp3 ogg opus m4a
+        if(extension == "mp3" || extension == "ogg" || extension == "opus" || extension == "aac" || extension == "m4a" ){ // aac mp3 ogg opus m4a
             audio_track = getAbsolutePath()+LISTA[current_track].substring(3);
             player.setAttribute('src', audio_track);
             //player.play();
@@ -158,8 +158,8 @@ function inicio(){
                     .catch(error => {});
                   }
         }
-        else if(extension == ".ini" || extension == ".log" || extension == ".pdf" || extension == ".rtf"){
-             cargar_audio(extension,getAbsolutePath()+LISTA[current_track].substring(3));
+        else if(extension == "ini" || extension == "log" || extension == "pdf" || extension == "rtf"){
+             cargar_audio(extension,LISTA[current_track]);//.substring(3));
         }
     }
     else{
