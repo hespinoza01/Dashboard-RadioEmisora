@@ -1,8 +1,6 @@
 <?php
 
 require_once 'data.php';
-require_once 'data_file.php';
-include 'no_cache_header.php';
 
 	$datos_generos = new Generos();
 	$datos_comerciales = new Comerciales();

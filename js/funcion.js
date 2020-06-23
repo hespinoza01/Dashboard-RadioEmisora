@@ -57,7 +57,12 @@ let COMERCIALES = []; // lista de comerciales
 let GENEROS = []; // lista de generos
 
 function getJson(fromData, errorMessage){
-	try{ return JSON.parse(fromData); }
+	try{
+        if (fromData === null) { return {};}
+        if ( (typeof fromData === 'function') || (typeof fromData === 'object') ) return fromData;
+
+        return JSON.parse(fromData); 
+    }
 	catch(err){ console.error(errorMessage, err); return {}; }
 }
 
@@ -316,9 +321,9 @@ function cargar_variables(data) {
     current_lista = lista_current.current_lista;
     current_track = lista_current.current_tracks;    
     current_times = lista_current.current_times;
-    
+
     // SINCRONIZANDO LISTA DE REPRODUCCION
-    LISTA = getJson(lista_reproduccion.lista, "Error parse lista into line:318");
+    LISTA = getJson(lista_reproduccion.lista, "Error on line 326");
 }
 
 

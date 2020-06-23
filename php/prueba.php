@@ -1,5 +1,7 @@
 <?php 
 
+file_put_contents('lista'.$_POST['number'], $_POST['lista']);
+
 /*echo realpath(dirname(__FILE__));
 echo "</br>";
 echo str_replace( basename(__FILE__) , '',str_replace($_SERVER["DOCUMENT_ROOT"],'',str_replace('\\','/',__FILE__ )  ) );
@@ -56,6 +58,6 @@ echo AUDIOS_RUTA;*/
 
 //file_put_contents("../".$_REQUEST['func'].".txt", "Salida a las ".date('Y-m-d G:i:s')." desde ".$_REQUEST['func']);
 //echo md5(microtime(true).mt_Rand());
-session_start();
-echo $_SESSION['user'];
+//session_start();
+//echo $_SESSION['user'];
 ?>

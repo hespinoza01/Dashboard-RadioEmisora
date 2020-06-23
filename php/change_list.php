@@ -2,7 +2,6 @@
 
 require_once 'data.php';
 require_once 'data_file.php';
-include 'no_cache_header.php';
 
 $datos_lista1= new Lista1();
 $lista_nueva = array();
